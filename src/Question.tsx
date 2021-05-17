@@ -1,20 +1,55 @@
 import { quiz } from "./data/data";
 import { useTheme } from "./context/ThemeContext";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { color } from "./utils/color";
 import { option } from "./utils/option";
-import { useReducer, useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuiz } from "./context/QuizContext";
 import { Link } from "react-router-dom";
 
 export function Question() {
-  const { dispatch } = useQuiz();
+  const { state, dispatch } = useQuiz();
   const [click, setClicked] = useState(false);
 
   const { theme, darkTheme } = useTheme();
   let { questionId } = useParams();
+  let navigate = useNavigate();
+
+  const [count, setCount] = useState(30);
+  useEffect(() => {
+    if (count === 0) {
+      navigate(`/question/${Number(questionId) + 1}`, {
+        replace: true,
+      });
+      setCount(30);
+      return;
+    }
+    let timer = setInterval(() => {
+      setCount(count - 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [count]);
+
   return (
     <>
+    <div className="flex justify-between">
+      <span
+        className={
+          theme === darkTheme ? "text-white text-2xl ml-16" : "text-black text-2xl ml-16"
+        }
+      >
+        Time: 0:{count}
+      </span>
+      <div
+        className={
+          theme === darkTheme
+            ? "text-white text-2xl mb-5 mr-20"
+            : "text-black text-2xl mb-5 mr-20"
+        }
+      >
+        Score: {state.score}
+      </div>
+      </div>
       {quiz.questions.map(
         ({ question, id, options }) =>
           id === Number(questionId) && (
@@ -34,6 +69,10 @@ export function Question() {
                     className={color(index)}
                     onClick={() => {
                       setClicked(true);
+                      setCount(30);
+                      navigate(`/question/${Number(questionId) + 1}`, {
+                        replace: true,
+                      });
                       isRight
                         ? dispatch({ type: "increment" })
                         : dispatch({ type: "decrement" });

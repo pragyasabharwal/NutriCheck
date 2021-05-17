@@ -51,15 +51,6 @@ function App() {
           </svg>
         )}
       </div>
-      <div
-        className={
-          theme === darkTheme
-            ? "text-white text-xl mb-5"
-            : "text-black text-xl mb-5"
-        }
-      >
-        Score: {state.score}
-      </div>
       <Routes>
         <Route path="/question/:questionId" element={<Question />} />
       </Routes>
