@@ -2,7 +2,7 @@ import React, { useReducer, useEffect, useRef, useState } from "react";
 import "./index.css";
 import "./App.css";
 import { useTheme } from "./context/ThemeContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { Home } from "./Home/Home"
 import { Route, Routes, Link } from "react-router-dom";
 import { Question } from "./Question";
 import { useQuiz } from "./context/QuizContext";
@@ -52,7 +52,8 @@ function App() {
         )}
       </div>
       <Routes>
-        <Route path="/question/:questionId" element={<Question />} />
+        <Route path="/quiz/:quizName/question/:questionId" element={<Question />} />
+        <Route path="/" element={<Home />} />
       </Routes>
 
     </div>

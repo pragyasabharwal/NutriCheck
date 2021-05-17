@@ -12,7 +12,7 @@ export type Question = {
 };
 
 export type Quiz = {
-  quizName: string;
+  quizTitle: string;
   questions: Question[];
 };
 
