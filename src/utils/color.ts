@@ -1,5 +1,4 @@
 function color(index: number) {
-  // console.log(isRight, click)
   if (index === 0) {
     return "bg-blue-400 w-40 m-2 py-12 text-white sm:w-2/4 md:w-2/4 lg:w-7/12 ";
   }

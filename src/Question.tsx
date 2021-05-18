@@ -7,6 +7,15 @@ import { useState, useEffect } from "react";
 import { useQuiz } from "./context/QuizContext";
 import { Link } from "react-router-dom";
 
+// function answer(isRight: boolean, click: boolean) {
+//   if (click && isRight) {
+//     return { backgroundColor: "green" };
+//   }
+//   if (!click) return {};
+
+//   if (click && !isRight) return { backgroundColor: "red" };
+// }
+
 export function Question() {
   const { state, dispatch } = useQuiz();
   const [click, setClicked] = useState(false);
@@ -18,9 +27,13 @@ export function Question() {
   const [count, setCount] = useState(30);
   useEffect(() => {
     if (count === 0) {
-      navigate(`/quiz/${quizName}/question/${Number(questionId) + 1}`, {
-        replace: true,
-      });
+      Number(questionId) === 8
+        ? navigate(`/score`, {
+            replace: true,
+          })
+        : navigate(`/quiz/${quizName}/question/${Number(questionId) + 1}`, {
+            replace: true,
+          });
       setCount(30);
       return;
     }
@@ -56,7 +69,7 @@ export function Question() {
         ({ quizTitle, questions }) =>
           quizTitle === quizName &&
           questions.map(
-            ({ question, id, options }) =>
+            ({ question, id, options, points, negativePoint }) =>
               id === Number(questionId) && (
                 <div>
                   <div
@@ -71,19 +84,26 @@ export function Question() {
                   <div className="flex flex-row flex-wrap items-center justify-center sm:flex-col md:flex-col lg:flex-col cursor-pointer">
                     {options.map(({ text, isRight }, index) => (
                       <div
+                        // style={answer(isRight, click)}
                         className={color(index)}
                         onClick={() => {
                           setClicked(true);
                           setCount(30);
-                          navigate(
-                            `/quiz/${quizName}/question/${Number(questionId) + 1}`,
-                            {
-                              replace: true,
-                            }
-                          );
+                          Number(questionId) === 8
+                            ? navigate(`/score`, {
+                                replace: true,
+                              })
+                            : navigate(
+                                `/quiz/${quizName}/question/${
+                                  Number(questionId) + 1
+                                }`,
+                                {
+                                  replace: true,
+                                }
+                              );
                           isRight
-                            ? dispatch({ type: "increment" })
-                            : dispatch({ type: "decrement" });
+                            ? dispatch({ type: "increment", payload: {points, negativePoint} })
+                            : dispatch({ type: "decrement", payload: {points, negativePoint} });
                         }}
                       >
                         {option(index)}
@@ -96,7 +116,13 @@ export function Question() {
           )
       )}
       <div className="w-32 ml-auto mr-auto mt-12">
-        <Link to={`/quiz/${quizName}/question/${Number(questionId) + 1}`}>
+        <Link
+          to={
+            Number(questionId) === 8
+              ? `/score`
+              : `/quiz/${quizName}/question/${Number(questionId) + 1}`
+          }
+        >
           <div
             className={
               theme === darkTheme

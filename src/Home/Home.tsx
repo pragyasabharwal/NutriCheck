@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import { useQuiz } from "src/context/QuizContext";
 import { useTheme } from "src/context/ThemeContext";
-import "./Home.css"
+import "./Home.css";
 
 export const Home = () => {
   const { theme, darkTheme } = useTheme();
+  const { dispatch } = useQuiz();
   return (
     <>
       <div className="flex justify-center">
@@ -29,10 +31,12 @@ export const Home = () => {
           NutriCheck
         </span>
       </div>
+      <div className="text-2xl mt-14 w-3/4 mr-auto ml-auto">Welcome to NutriCheck! <br /> <br />We have curated some fun quizzes for you so that you can keep your food habits in check.</div>
       <div className="flex justify-evenly flex-wrap">
         <Link to={`/quiz/calories/question/1`}>
           <div className="w-56 shadow-lg mt-10 md:w-80 mt-20">
             <img
+              onClick={() => dispatch({ type: "reset" })}
               src={
                 "https://images.unsplash.com/photo-1604296706014-1780746d6f57?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1100&q=80"
               }
@@ -51,6 +55,7 @@ export const Home = () => {
         <Link to={`/quiz/vitamins/question/1`}>
           <div className="w-56 shadow-lg mt-10 md:w-80 mt-20">
             <img
+              onClick={() => dispatch({ type: "reset" })}
               src={
                 "https://images.unsplash.com/photo-1444459094717-a39f1e3e0903?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
               }
@@ -69,6 +74,7 @@ export const Home = () => {
         <Link to={`/quiz/ultimate-quiz/question/1`}>
           <div className="w-56 shadow-lg mt-10 md:w-80 mt-20">
             <img
+              onClick={() => dispatch({ type: "reset" })}
               src={
                 "https://images.unsplash.com/photo-1584559582213-787a2953dcbe?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2300&q=80"
               }
@@ -80,13 +86,19 @@ export const Home = () => {
                   : "text-black pt-4 pb-4"
               }
             >
-               Ultimate Healthy Eating Quiz!
+              Ultimate Healthy Eating Quiz!
             </div>
           </div>
         </Link>
       </div>
       <footer className="text-white flex mr-auto ml-auto w-80 m-20 mb-20 footer mt-20">
-        <span className={theme===darkTheme ? "text-white px-2" : "text-black px-2"}>Made with</span>
+        <span
+          className={
+            theme === darkTheme ? "text-white px-2" : "text-black px-2"
+          }
+        >
+          Made with
+        </span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5"
@@ -99,7 +111,13 @@ export const Home = () => {
             clipRule="evenodd"
           />
         </svg>{" "}
-        <span className={theme===darkTheme ? "text-white px-2" : "text-black px-2"}>by Pragya Sabharwal</span>
+        <span
+          className={
+            theme === darkTheme ? "text-white px-2" : "text-black px-2"
+          }
+        >
+          by Pragya Sabharwal
+        </span>
       </footer>
     </>
   );

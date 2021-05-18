@@ -14,7 +14,7 @@ const darkTheme = {
 };
 
 export function ThemeProvider({ children }: Props) {
-  const [theme, setTheme] = useState<Theme>(darkTheme);
+  const [theme, setTheme] = useState<Theme>(lightTheme);
   return (
     <ThemeContext.Provider value={{ theme, lightTheme, darkTheme, setTheme }}>
       {children}
