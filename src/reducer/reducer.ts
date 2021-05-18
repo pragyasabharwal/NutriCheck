@@ -9,6 +9,7 @@ function reducer(
   state: typeof initialScore,
   action: Action
 ): typeof initialScore {
+  console.log(state)
   switch (action.type) {
     case "increment":
       return {
@@ -23,7 +24,7 @@ function reducer(
         wrong: state.wrong + 1,
       };
     case "reset":
-      return { ...state, score: 0 };
+      return { ...state, score: 0, right: 0, wrong: 0, unattempted: 0 };
     case "skip_question":
       return {
         ...state,
