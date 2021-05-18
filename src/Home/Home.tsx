@@ -31,7 +31,17 @@ export const Home = () => {
           NutriCheck
         </span>
       </div>
-      <div className={theme === darkTheme ? "text-white text-xl mt-10 w-3/4 mr-auto ml-auto" : "text-black text-xl mt-10 w-3/4 mr-auto ml-auto"}>Welcome to NutriCheck! <br /> <br />We have curated some fun quizzes for you so that you can keep your food habits in check.</div>
+      <div
+        className={
+          theme === darkTheme
+            ? "text-white text-xl mt-10 w-3/4 mr-auto ml-auto"
+            : "text-black text-xl mt-10 w-3/4 mr-auto ml-auto"
+        }
+      >
+        Welcome to NutriCheck! <br /> <br />
+        We have curated some fun quizzes for you so that you can keep your food
+        habits in check.
+      </div>
       <div className="flex justify-evenly flex-wrap">
         <Link to={`/quiz/calories/rules`}>
           <div className="w-56 shadow-lg mt-10 md:w-80 mt-20">
@@ -40,6 +50,7 @@ export const Home = () => {
               src={
                 "https://images.unsplash.com/photo-1604296706014-1780746d6f57?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1100&q=80"
               }
+              alt="calorie-quiz"
             ></img>
             <div
               className={
@@ -59,6 +70,7 @@ export const Home = () => {
               src={
                 "https://images.unsplash.com/photo-1444459094717-a39f1e3e0903?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
               }
+              alt="vitamin-quiz"
             ></img>
             <div
               className={
@@ -78,6 +90,7 @@ export const Home = () => {
               src={
                 "https://images.unsplash.com/photo-1584559582213-787a2953dcbe?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2300&q=80"
               }
+              alt="ultimate-quiz"
             ></img>
             <div
               className={

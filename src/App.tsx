@@ -1,16 +1,13 @@
-import React, { useReducer, useEffect, useRef, useState } from "react";
 import "./index.css";
 import "./App.css";
 import { useTheme } from "./context/ThemeContext";
 import { Home } from "./Home/Home"
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Question } from "./Question";
-import { useQuiz } from "./context/QuizContext";
 import { Score } from "./Score"
 import { Rules } from "./Rules";
 
 function App() {
-  const { state } = useQuiz()
   const { theme, setTheme, lightTheme, darkTheme } = useTheme();
 
   return (
