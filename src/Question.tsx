@@ -79,7 +79,7 @@ export function Question() {
                         : "text-2xl my-12 text-black lg: text-3xl"
                     }
                   >
-                    {question}
+                    {id}. {question}
                   </div>
                   <div className="flex flex-row flex-wrap items-center justify-center sm:flex-col md:flex-col lg:flex-col cursor-pointer">
                     {options.map(({ text, isRight }, index) => (

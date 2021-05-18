@@ -134,7 +134,7 @@ const quiz: Quiz[] = [{
         { text: "Tomatoes", isRight: false },
         { text: "Papaya", isRight: false },
         { text: "Guava", isRight: false },
-        { text: "All of the above", isRight: true },
+        { text: "All of these", isRight: true },
       ],
     },
     {
@@ -153,8 +153,8 @@ const quiz: Quiz[] = [{
       points: 5,
       negativePoint: 2,
       options: [
-        { text: "Zeaxanthin and lutein from fruits and vegetables", isRight: false },
-        { text: "Zinc", isRight: false },
+        { text: "Zeaxanthin and lutein", isRight: false },
+        { text: "Zinc and Vitamin A", isRight: false },
         { text: "Vitamins C and E", isRight: false },
         { text: "All of the above", isRight: true },
       ],
@@ -165,8 +165,8 @@ const quiz: Quiz[] = [{
       points: 5,
       negativePoint: 2,
       options: [
-        { text: "Vitaly Minkov, the Russian researcher who first discovered vitamins", isRight: false },
-        { text: "Vital and amines", isRight: true },
+        { text: "Vitaly Minkov, the Russian researcher", isRight: false },
+        { text: "From amalgamation of Vital and amines", isRight: true },
         { text: "Vitumamine, the first vitamin to be discovered", isRight: false },
       ],
     },
@@ -187,8 +187,8 @@ const quiz: Quiz[] = [{
       negativePoint: 2,
       options: [
         { text: "Calcium and Vitamin D", isRight: false },
-        { text: "Vitamin K", isRight: false },
-        { text: "Magnesium and Potassium", isRight: false },
+        { text: "Vitamin K and Calcium", isRight: false },
+        { text: "Magnesium, Potassium", isRight: false },
         { text: "All of the above", isRight: true },
       ],
     },

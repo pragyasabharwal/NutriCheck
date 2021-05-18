@@ -7,6 +7,7 @@ import { Route, Routes, Link } from "react-router-dom";
 import { Question } from "./Question";
 import { useQuiz } from "./context/QuizContext";
 import { Score } from "./Score"
+import { Rules } from "./Rules";
 
 function App() {
   const { state } = useQuiz()
@@ -56,6 +57,7 @@ function App() {
         <Route path="/quiz/:quizName/question/:questionId" element={<Question />} />
         <Route path="/" element={<Home />} />
         <Route path="/score" element={<Score />} />
+        <Route path="/quiz/:quizName/rules" element={<Rules />} />
       </Routes>
 
     </div>

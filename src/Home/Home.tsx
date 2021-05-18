@@ -31,9 +31,9 @@ export const Home = () => {
           NutriCheck
         </span>
       </div>
-      <div className="text-2xl mt-14 w-3/4 mr-auto ml-auto">Welcome to NutriCheck! <br /> <br />We have curated some fun quizzes for you so that you can keep your food habits in check.</div>
+      <div className={theme === darkTheme ? "text-white text-xl mt-10 w-3/4 mr-auto ml-auto" : "text-black text-xl mt-10 w-3/4 mr-auto ml-auto"}>Welcome to NutriCheck! <br /> <br />We have curated some fun quizzes for you so that you can keep your food habits in check.</div>
       <div className="flex justify-evenly flex-wrap">
-        <Link to={`/quiz/calories/question/1`}>
+        <Link to={`/quiz/calories/rules`}>
           <div className="w-56 shadow-lg mt-10 md:w-80 mt-20">
             <img
               onClick={() => dispatch({ type: "reset" })}
@@ -52,7 +52,7 @@ export const Home = () => {
             </div>
           </div>
         </Link>
-        <Link to={`/quiz/vitamins/question/1`}>
+        <Link to={`/quiz/vitamins/rules`}>
           <div className="w-56 shadow-lg mt-10 md:w-80 mt-20">
             <img
               onClick={() => dispatch({ type: "reset" })}
@@ -71,7 +71,7 @@ export const Home = () => {
             </div>
           </div>
         </Link>
-        <Link to={`/quiz/ultimate-quiz/question/1`}>
+        <Link to={`/quiz/ultimate-quiz/rules`}>
           <div className="w-56 shadow-lg mt-10 md:w-80 mt-20">
             <img
               onClick={() => dispatch({ type: "reset" })}
@@ -92,16 +92,16 @@ export const Home = () => {
         </Link>
       </div>
       <footer className="text-white flex mr-auto ml-auto w-80 m-20 mb-20 footer mt-20">
-        <span
+        <div
           className={
             theme === darkTheme ? "text-white px-2" : "text-black px-2"
           }
         >
           Made with
-        </span>
+        </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
+          className="h-5 w-5 mb-8"
           viewBox="0 0 20 20"
           fill="red"
         >
@@ -111,13 +111,13 @@ export const Home = () => {
             clipRule="evenodd"
           />
         </svg>{" "}
-        <span
+        <div
           className={
             theme === darkTheme ? "text-white px-2" : "text-black px-2"
           }
         >
           by Pragya Sabharwal
-        </span>
+        </div>
       </footer>
     </>
   );
