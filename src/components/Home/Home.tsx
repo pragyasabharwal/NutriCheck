@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useQuiz } from "src/context/QuizContext";
 import { useTheme } from "src/context/ThemeContext";
-import "./Home.css";
 
 export const Home = () => {
   const { theme, darkTheme } = useTheme();

@@ -1,6 +1,6 @@
-import { useTheme } from "./context/ThemeContext";
+import { useTheme } from "../context/ThemeContext";
 import { Link, useParams } from "react-router-dom";
-import { useQuiz } from "./context/QuizContext";
+import { useQuiz } from "../context/QuizContext";
 
 export const Rules = () => {
   const { theme, darkTheme } = useTheme();

@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from "react-router";
-import { useQuiz } from "./context/QuizContext";
-import { useTheme } from "./context/ThemeContext";
+import { useQuiz } from "../context/QuizContext";
+import { useTheme } from "../context/ThemeContext";
 
 export const Score = () => {
   const { state } = useQuiz();
   let correctRatio = (state.right / 8) * 100;
   let wrongRatio = (state.wrong / 8) * 100;
-  let unattemptedRatio = (state.unattempted/8) * 100
+  let unattemptedRatio = (state.unattempted / 8) * 100;
   const { quizName } = useParams();
   let navigate = useNavigate();
   const { dispatch } = useQuiz();
@@ -108,12 +108,12 @@ export const Score = () => {
             />
           </svg>
           <div>
-          <div className={theme === darkTheme ? "text-white" : "text-black"}>
-            Unattempted
-          </div>
-          <div className={theme === darkTheme ? "text-white" : "text-black"}>
-            {state.unattempted}
-          </div>
+            <div className={theme === darkTheme ? "text-white" : "text-black"}>
+              Unattempted
+            </div>
+            <div className={theme === darkTheme ? "text-white" : "text-black"}>
+              {state.unattempted}
+            </div>
           </div>
         </div>
         <div

@@ -1,11 +1,11 @@
 import "./index.css";
 import "./App.css";
 import { useTheme } from "./context/ThemeContext";
-import { Home } from "./Home/Home"
+import { Home } from "./components/Home/Home"
 import { Route, Routes } from "react-router-dom";
-import { Question } from "./Question";
-import { Score } from "./Score"
-import { Rules } from "./Rules";
+import { Question } from "./components/Question";
+import { Score } from "./components/Score"
+import { Rules } from "./components/Rules";
 
 function App() {
   const { theme, setTheme, lightTheme, darkTheme } = useTheme();

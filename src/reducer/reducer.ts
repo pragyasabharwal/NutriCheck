@@ -9,7 +9,6 @@ function reducer(
   state: typeof initialScore,
   action: Action
 ): typeof initialScore {
-  console.log(state)
   switch (action.type) {
     case "increment":
       return {

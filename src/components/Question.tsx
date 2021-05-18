@@ -1,10 +1,10 @@
 import { quiz } from "./data/data";
-import { useTheme } from "./context/ThemeContext";
+import { useTheme } from "../context/ThemeContext";
 import { useNavigate, useParams } from "react-router";
 import { color } from "./utils/color";
 import { option } from "./utils/option";
 import { useState, useEffect } from "react";
-import { useQuiz } from "./context/QuizContext";
+import { useQuiz } from "../context/QuizContext";
 import { Link } from "react-router-dom";
 
 // function answer(isRight: boolean, click: boolean) {
