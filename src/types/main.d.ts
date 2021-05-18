@@ -35,5 +35,5 @@ export type Props = {
 export type QuizContextType = {
   initialScore: { score: number };
   dispatch: React.Dispatch<Action>;
-  state: { score: number };
+  state: { score: number, right: number, wrong: number, unattempted: number };
 };

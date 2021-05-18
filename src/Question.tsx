@@ -28,7 +28,7 @@ export function Question() {
   useEffect(() => {
     if (count === 0) {
       Number(questionId) === 8
-        ? navigate(`/score`, {
+        ? navigate(`/quiz/${quizName}/score`, {
             replace: true,
           })
         : navigate(`/quiz/${quizName}/question/${Number(questionId) + 1}`, {
@@ -90,7 +90,7 @@ export function Question() {
                           setClicked(true);
                           setCount(30);
                           Number(questionId) === 8
-                            ? navigate(`/score`, {
+                            ? navigate(`/quiz/${quizName}/score`, {
                                 replace: true,
                               })
                             : navigate(
@@ -119,15 +119,16 @@ export function Question() {
         <Link
           to={
             Number(questionId) === 8
-              ? `/score`
+              ? `/quiz/${quizName}/score`
               : `/quiz/${quizName}/question/${Number(questionId) + 1}`
           }
         >
           <div
+          onClick={()=>dispatch({type: 'skip_question'})}
             className={
               theme === darkTheme
-                ? "text-white border-0 border-white-500 px-7 py-3 mb-10 ring-4 ring-white"
-                : "text-black border-0 border-black-500 px-7 py-3 mb-10 ring-4 ring-black"
+                ? "text-white border-0 border-white-500 px-7 py-3 mb-52 ring-4 ring-white"
+                : "text-black border-0 border-black-500 px-7 py-3 mb-52 ring-4 ring-black"
             }
           >
             Next →
