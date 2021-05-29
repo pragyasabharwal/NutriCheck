@@ -22,7 +22,6 @@ export type Theme = {
 };
 
 export type ThemeContextType = {
-  theme: Theme;
   lightTheme: Theme;
   darkTheme: Theme;
   setTheme: (value: Theme) => void;
@@ -35,5 +34,5 @@ export type Props = {
 export type QuizContextType = {
   initialScore: { score: number };
   dispatch: React.Dispatch<Action>;
-  state: { score: number, right: number, wrong: number, unattempted: number };
+  state: { score: number; right: number; wrong: number; unattempted: number };
 };

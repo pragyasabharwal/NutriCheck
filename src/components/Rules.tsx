@@ -3,9 +3,9 @@ import { Link, useParams } from "react-router-dom";
 import { useQuiz } from "../context/QuizContext";
 
 export const Rules = () => {
-  const { theme, darkTheme } = useTheme();
+  const themeStored = localStorage.getItem("theme");
   const { quizName } = useParams();
-  const { dispatch } = useQuiz()
+  const { dispatch } = useQuiz();
   return (
     <div>
       <div className="flex justify-center">
@@ -25,7 +25,7 @@ export const Rules = () => {
         </svg>
         <span
           className={
-            theme === darkTheme
+            themeStored === "dark"
               ? "self-center text-3xl ml-2 mr-2 text-white"
               : "self-center text-3xl ml-2 mr-2 text-black"
           }
@@ -49,7 +49,7 @@ export const Rules = () => {
       </div>
       <div
         className={
-          theme === darkTheme
+          themeStored === "dark"
             ? "text-white mt-10 text-left mr-auto ml-auto w-96 flex-col text-medium ring-4 ring-white p-10"
             : "text-black mt-10 text-left mr-auto ml-auto w-96 flex-col text-medium ring-4 ring-black p-10"
         }
@@ -69,7 +69,7 @@ export const Rules = () => {
         <button
           onClick={() => dispatch({ type: "reset" })}
           className={
-            theme === darkTheme
+            themeStored === "dark"
               ? "text-white border-0 border-white-500 px-7 py-3 mt-10 mb-48 ring-4 ring-white"
               : "text-black border-0 border-black-500 px-7 py-3 mt-10 mb-48 ring-4 ring-black"
           }

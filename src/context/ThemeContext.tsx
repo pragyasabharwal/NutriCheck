@@ -13,10 +13,19 @@ const darkTheme = {
   color: "white",
 };
 
+const themeStored = localStorage.getItem("theme");
+let value: Theme;
+
+if (themeStored === "dark") {
+  value = darkTheme;
+} else {
+  value = lightTheme;
+}
+
 export function ThemeProvider({ children }: Props) {
-  const [theme, setTheme] = useState<Theme>(lightTheme);
+  const [theme, setTheme] = useState<Theme>(value);
   return (
-    <ThemeContext.Provider value={{ theme, lightTheme, darkTheme, setTheme }}>
+    <ThemeContext.Provider value={{ lightTheme, darkTheme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );

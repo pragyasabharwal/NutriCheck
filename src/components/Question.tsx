@@ -20,7 +20,7 @@ export function Question() {
   const { state, dispatch } = useQuiz();
   const [click, setClicked] = useState(false);
 
-  const { theme, darkTheme } = useTheme();
+  const themeStored = localStorage.getItem("theme");
   let { questionId, quizName } = useParams();
   let navigate = useNavigate();
 
@@ -48,7 +48,7 @@ export function Question() {
       <div className="flex justify-between">
         <span
           className={
-            theme === darkTheme
+            themeStored === "dark"
               ? "text-white text-2xl ml-16"
               : "text-black text-2xl ml-16"
           }
@@ -57,7 +57,7 @@ export function Question() {
         </span>
         <div
           className={
-            theme === darkTheme
+            themeStored === "dark"
               ? "text-white text-2xl mb-5 mr-20"
               : "text-black text-2xl mb-5 mr-20"
           }
@@ -74,7 +74,7 @@ export function Question() {
                 <div>
                   <div
                     className={
-                      theme === darkTheme
+                      themeStored === "dark"
                         ? "text-2xl my-12 text-white lg: text-3xl"
                         : "text-2xl my-12 text-black lg: text-3xl"
                     }
@@ -102,8 +102,14 @@ export function Question() {
                                 }
                               );
                           isRight
-                            ? dispatch({ type: "increment", payload: {points, negativePoint} })
-                            : dispatch({ type: "decrement", payload: {points, negativePoint} });
+                            ? dispatch({
+                                type: "increment",
+                                payload: { points, negativePoint },
+                              })
+                            : dispatch({
+                                type: "decrement",
+                                payload: { points, negativePoint },
+                              });
                         }}
                       >
                         {option(index)}
@@ -124,9 +130,9 @@ export function Question() {
           }
         >
           <div
-          onClick={()=>dispatch({type: 'skip_question'})}
+            onClick={() => dispatch({ type: "skip_question" })}
             className={
-              theme === darkTheme
+              themeStored === "dark"
                 ? "text-white border-0 border-white-500 px-7 py-3 mb-52 ring-4 ring-white"
                 : "text-black border-0 border-black-500 px-7 py-3 mb-52 ring-4 ring-black"
             }

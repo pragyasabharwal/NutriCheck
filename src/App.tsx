@@ -1,24 +1,41 @@
 import "./index.css";
 import "./App.css";
+import { useEffect } from "react";
 import { useTheme } from "./context/ThemeContext";
-import { Home } from "./components/Home/Home"
+import { Home } from "./components/Home/Home";
 import { Route, Routes } from "react-router-dom";
 import { Question } from "./components/Question";
-import { Score } from "./components/Score"
+import { Score } from "./components/Score";
 import { Rules } from "./components/Rules";
 
 function App() {
-  const { theme, setTheme, lightTheme, darkTheme } = useTheme();
+  const { setTheme, lightTheme, darkTheme } = useTheme();
+
+  const themeStored = localStorage.getItem("theme");
+
+  useEffect(() => {
+    localStorage?.setItem("theme", themeStored ? themeStored : "dark");
+  });
+
+  function themeFunc() {
+    if (themeStored === "dark") {
+      localStorage?.setItem("theme", "light");
+      setTheme(lightTheme);
+    } else {
+      localStorage?.setItem("theme", "dark");
+      setTheme(darkTheme);
+    }
+  }
 
   return (
-    <div className={theme === darkTheme ? "App body-dark" : "App body-light"}>
+    <div
+      className={themeStored === "dark" ? "App body-dark" : "App body-light"}
+    >
       <div
         className="text-white cursor-pointer py-3 px-3"
-        onClick={() =>
-          theme === darkTheme ? setTheme(lightTheme) : setTheme(darkTheme)
-        }
+        onClick={() => themeFunc()}
       >
-        {theme === lightTheme ? (
+        {themeStored === "light" ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -51,12 +68,14 @@ function App() {
         )}
       </div>
       <Routes>
-        <Route path="/quiz/:quizName/question/:questionId" element={<Question />} />
+        <Route
+          path="/quiz/:quizName/question/:questionId"
+          element={<Question />}
+        />
         <Route path="/" element={<Home />} />
         <Route path="/quiz/:quizName/score" element={<Score />} />
         <Route path="/quiz/:quizName/rules" element={<Rules />} />
       </Routes>
-
     </div>
   );
 }

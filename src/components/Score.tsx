@@ -10,19 +10,19 @@ export const Score = () => {
   const { quizName } = useParams();
   let navigate = useNavigate();
   const { dispatch } = useQuiz();
-  const { theme, darkTheme } = useTheme();
+  const themeStored = localStorage.getItem("theme");
   return (
     <>
       <span
         className={
-          theme === darkTheme ? "text-white text-xl" : "text-black text-xl"
+          themeStored === "dark" ? "text-white text-xl" : "text-black text-xl"
         }
       >
         Thanks for taking this quiz
       </span>
       <div className="mt-10 flex justify-evenly flex-col">
         <div className="mb-10">
-          <div className={theme === darkTheme ? "text-white" : "text-black"}>
+          <div className={themeStored === "dark" ? "text-white" : "text-black"}>
             Accuracy: {correctRatio}%
           </div>
           <div className="flex w-40 ml-auto mr-auto justify-center">
@@ -60,10 +60,14 @@ export const Score = () => {
             />
           </svg>
           <div>
-            <div className={theme === darkTheme ? "text-white" : "text-black"}>
+            <div
+              className={themeStored === "dark" ? "text-white" : "text-black"}
+            >
               Correct
             </div>
-            <div className={theme === darkTheme ? "text-white" : "text-black"}>
+            <div
+              className={themeStored === "dark" ? "text-white" : "text-black"}
+            >
               {state.right}
             </div>
           </div>
@@ -84,10 +88,14 @@ export const Score = () => {
             />
           </svg>
           <div>
-            <div className={theme === darkTheme ? "text-white" : "text-black"}>
+            <div
+              className={themeStored === "dark" ? "text-white" : "text-black"}
+            >
               Wrong
             </div>
-            <div className={theme === darkTheme ? "text-white" : "text-black"}>
+            <div
+              className={themeStored === "dark" ? "text-white" : "text-black"}
+            >
               {state.wrong}
             </div>
           </div>
@@ -108,10 +116,14 @@ export const Score = () => {
             />
           </svg>
           <div>
-            <div className={theme === darkTheme ? "text-white" : "text-black"}>
+            <div
+              className={themeStored === "dark" ? "text-white" : "text-black"}
+            >
               Unattempted
             </div>
-            <div className={theme === darkTheme ? "text-white" : "text-black"}>
+            <div
+              className={themeStored === "dark" ? "text-white" : "text-black"}
+            >
               {state.unattempted}
             </div>
           </div>

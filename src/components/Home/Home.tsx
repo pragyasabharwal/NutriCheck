@@ -3,7 +3,8 @@ import { useQuiz } from "src/context/QuizContext";
 import { useTheme } from "src/context/ThemeContext";
 
 export const Home = () => {
-  const { theme, darkTheme } = useTheme();
+  const themeStored = localStorage.getItem("theme");
+
   const { dispatch } = useQuiz();
   return (
     <>
@@ -22,7 +23,7 @@ export const Home = () => {
         </svg>
         <span
           className={
-            theme === darkTheme
+            themeStored === "dark"
               ? "text-white text-3xl ml-4 self-center"
               : "text-black text-3xl ml-4 self-center"
           }
@@ -32,7 +33,7 @@ export const Home = () => {
       </div>
       <div
         className={
-          theme === darkTheme
+          themeStored === "dark"
             ? "text-white text-xl mt-10 w-3/4 mr-auto ml-auto"
             : "text-black text-xl mt-10 w-3/4 mr-auto ml-auto"
         }
@@ -53,7 +54,7 @@ export const Home = () => {
             ></img>
             <div
               className={
-                theme === darkTheme
+                themeStored === "dark"
                   ? "text-white pt-2 bg-gray-800"
                   : "text-black pt-2"
               }
@@ -73,7 +74,7 @@ export const Home = () => {
             ></img>
             <div
               className={
-                theme === darkTheme
+                themeStored === "dark"
                   ? "text-white pt-4 pb-4 bg-gray-800"
                   : "text-black pt-4 pb-4"
               }
@@ -93,7 +94,7 @@ export const Home = () => {
             ></img>
             <div
               className={
-                theme === darkTheme
+                themeStored === "dark"
                   ? "text-white pt-4 pb-4 bg-gray-800"
                   : "text-black pt-4 pb-4"
               }
@@ -106,7 +107,7 @@ export const Home = () => {
       <footer className="text-white flex mr-auto ml-auto w-80 m-20 mb-20 footer mt-20">
         <div
           className={
-            theme === darkTheme ? "text-white px-2" : "text-black px-2"
+            themeStored === "dark" ? "text-white px-2" : "text-black px-2"
           }
         >
           Made with
@@ -125,7 +126,7 @@ export const Home = () => {
         </svg>{" "}
         <div
           className={
-            theme === darkTheme ? "text-white px-2" : "text-black px-2"
+            themeStored === "dark" ? "text-white px-2" : "text-black px-2"
           }
         >
           by Pragya Sabharwal
