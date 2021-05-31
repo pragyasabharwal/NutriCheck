@@ -6,7 +6,7 @@ import { Dashboard } from "../Dashboard";
 import { Quiz } from "../../types/main";
 
 export const Home = () => {
-  const themeStored = localStorage.getItem("theme");
+  const themeStored = localStorage?.getItem("theme");
   const [data, setData] = useState<Quiz[]>([]);
   const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
 

@@ -14,8 +14,11 @@ function App() {
   const themeStored = localStorage.getItem("theme");
 
   useEffect(() => {
+    themeStored === null && setTheme(darkTheme);
     localStorage?.setItem("theme", themeStored ? themeStored : "dark");
   });
+
+  console.log(themeStored)
 
   function themeFunc() {
     if (themeStored === "dark") {
