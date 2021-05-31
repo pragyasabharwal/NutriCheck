@@ -68,13 +68,10 @@ function App() {
         )}
       </div>
       <Routes>
-        <Route
-          path="/quiz/:quizName/question/:questionId"
-          element={<Question />}
-        />
+        <Route path="/quiz/:quizId" element={<Question />} />
         <Route path="/" element={<Home />} />
-        <Route path="/quiz/:quizName/score" element={<Score />} />
-        <Route path="/quiz/:quizName/rules" element={<Rules />} />
+        <Route path="/quiz/:quizId/score" element={<Score />} />
+        <Route path="/quiz/:quizId/rules" element={<Rules />} />
       </Routes>
     </div>
   );

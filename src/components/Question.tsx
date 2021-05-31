@@ -1,39 +1,46 @@
-import { quiz } from "./data/data";
-import { useTheme } from "../context/ThemeContext";
 import { useNavigate, useParams } from "react-router";
 import { color } from "./utils/color";
 import { option } from "./utils/option";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuiz } from "../context/QuizContext";
-import { Link } from "react-router-dom";
-
-// function answer(isRight: boolean, click: boolean) {
-//   if (click && isRight) {
-//     return { backgroundColor: "green" };
-//   }
-//   if (!click) return {};
-
-//   if (click && !isRight) return { backgroundColor: "red" };
-// }
+import axios from "axios";
+import Loader from "react-loader-spinner";
 
 export function Question() {
   const { state, dispatch } = useQuiz();
-  const [click, setClicked] = useState(false);
-
+  const [clicked, setClicked] = useState(false);
   const themeStored = localStorage.getItem("theme");
-  let { questionId, quizName } = useParams();
-  let navigate = useNavigate();
-
+  const { quizId } = useParams();
+  const navigate = useNavigate();
   const [count, setCount] = useState(30);
+  const [data, setData] = useState([]);
+  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
+
+  useEffect(() => {
+    (async function () {
+      try {
+        const resp = await axios.get(
+          `${REACT_APP_BASE_URL}/${quizId}`
+        );
+        setData(resp.data.quiz);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, [data, quizId]);
+
+  useEffect(() => {
+    state.initialQuestion === 8 && navigate(`/quiz/${quizId}/score`);
+  });
+
+
   useEffect(() => {
     if (count === 0) {
-      Number(questionId) === 8
-        ? navigate(`/quiz/${quizName}/score`, {
+      state.initialQuestion === 8
+        ? navigate(`/score`, {
             replace: true,
           })
-        : navigate(`/quiz/${quizName}/question/${Number(questionId) + 1}`, {
-            replace: true,
-          });
+        : dispatch({ type: "skip_question", payload: 1 });
       setCount(30);
       return;
     }
@@ -41,7 +48,12 @@ export function Question() {
       setCount(count - 1);
     }, 1000);
     return () => clearInterval(timer);
-  }, [count]);
+  }, [count, dispatch, navigate, state.initialQuestion]);
+
+  window.onbeforeunload = (e: any) => {
+    e.preventDefault()
+    e.returnValue = '';
+  }
 
   return (
     <>
@@ -65,83 +77,100 @@ export function Question() {
           Score: {state.score}
         </div>
       </div>
-      {quiz.map(
-        ({ quizTitle, questions }) =>
-          quizTitle === quizName &&
+      {data.length === 0 ? (
+        <div className="loader m-auto my-40 pt-40 pb-96 block w-max">
+          <Loader
+            type="BallTriangle"
+            color={themeStored === "dark" ? "#ffffff" : "black"}
+            height={100}
+            width={100}
+            timeout={3000}
+          />
+        </div>
+      ) : (
+        data.map(({ questions }: { questions: [] }) =>
           questions.map(
-            ({ question, id, options, points, negativePoint }) =>
-              id === Number(questionId) && (
-                <div>
-                  <div
-                    className={
-                      themeStored === "dark"
-                        ? "text-2xl my-12 text-white lg: text-3xl"
-                        : "text-2xl my-12 text-black lg: text-3xl"
-                    }
-                  >
-                    {id}. {question}
+            (
+              {
+                _id,
+                question,
+                options,
+                points,
+                negativePoint,
+              }: {
+                _id: string
+                question: string;
+                options: [];
+                points: number;
+                negativePoint: number;
+              },
+              index
+            ) =>
+              index === state.initialQuestion && (
+                <>
+                  <div key={_id}>
+                    <div
+                      className={
+                        themeStored === "dark"
+                          ? "text-2xl my-12 text-white lg: text-3xl"
+                          : "text-2xl my-12 text-black lg: text-3xl"
+                      }
+                    >
+                      {question}
+                    </div>
+                    <div className="flex flex-row flex-wrap items-center justify-center sm:flex-col md:flex-col lg:flex-col cursor-pointer">
+                      {options.map(({ text, isRight, _id }, index) => (
+                        <div
+                          key={_id}
+                          className={color(index)}
+                          onClick={() => {
+                            setClicked(true);
+                            setCount(30);
+                            isRight
+                              ? dispatch({
+                                  type: "increment",
+                                  payload: {
+                                    points,
+                                    negativePoint,
+                                    questionNumber: 1,
+                                  },
+                                })
+                              : dispatch({
+                                  type: "decrement",
+                                  payload: {
+                                    points,
+                                    negativePoint,
+                                    questionNumber: 1,
+                                  },
+                                });
+                          }}
+                        >
+                          {option(index)}
+                          {text}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="flex flex-row flex-wrap items-center justify-center sm:flex-col md:flex-col lg:flex-col cursor-pointer">
-                    {options.map(({ text, isRight }, index) => (
-                      <div
-                        // style={answer(isRight, click)}
-                        className={color(index)}
-                        onClick={() => {
-                          setClicked(true);
-                          setCount(30);
-                          Number(questionId) === 8
-                            ? navigate(`/quiz/${quizName}/score`, {
-                                replace: true,
-                              })
-                            : navigate(
-                                `/quiz/${quizName}/question/${
-                                  Number(questionId) + 1
-                                }`,
-                                {
-                                  replace: true,
-                                }
-                              );
-                          isRight
-                            ? dispatch({
-                                type: "increment",
-                                payload: { points, negativePoint },
-                              })
-                            : dispatch({
-                                type: "decrement",
-                                payload: { points, negativePoint },
-                              });
-                        }}
-                      >
-                        {option(index)}
-                        {text}
-                      </div>
-                    ))}
+                  <div className="w-32 ml-auto mr-auto mt-12 pointer">
+                    <div
+                      onClick={() =>
+                        dispatch({ type: "skip_question", payload: 1 })
+                      }
+                      className={
+                        themeStored === "dark"
+                          ? "text-white border-0 border-white-500 px-7 py-3 mb-52 ring-4 ring-white"
+                          : "text-black border-0 border-black-500 px-7 py-3 mb-52 ring-4 ring-black"
+                      }
+                    >
+                      Next →
+                    </div>
+                    <div className="h-16"></div>
                   </div>
-                </div>
+                </>
               )
           )
+        )
       )}
-      <div className="w-32 ml-auto mr-auto mt-12">
-        <Link
-          to={
-            Number(questionId) === 8
-              ? `/quiz/${quizName}/score`
-              : `/quiz/${quizName}/question/${Number(questionId) + 1}`
-          }
-        >
-          <div
-            onClick={() => dispatch({ type: "skip_question" })}
-            className={
-              themeStored === "dark"
-                ? "text-white border-0 border-white-500 px-7 py-3 mb-52 ring-4 ring-white"
-                : "text-black border-0 border-black-500 px-7 py-3 mb-52 ring-4 ring-black"
-            }
-          >
-            Next →
-          </div>
-        </Link>
-        <div className="h-10"></div>
-      </div>
     </>
   );
 }

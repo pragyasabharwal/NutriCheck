@@ -1,10 +1,9 @@
-import { useTheme } from "../context/ThemeContext";
 import { Link, useParams } from "react-router-dom";
 import { useQuiz } from "../context/QuizContext";
 
 export const Rules = () => {
   const themeStored = localStorage.getItem("theme");
-  const { quizName } = useParams();
+  const { quizId } = useParams();
   const { dispatch } = useQuiz();
   return (
     <div>
@@ -65,7 +64,7 @@ export const Rules = () => {
           E. Skipping a question does not affect the score.
         </div>
       </div>
-      <Link to={`/quiz/${quizName}/question/1`}>
+      <Link to={`/quiz/${quizId}`}>
         <button
           onClick={() => dispatch({ type: "reset" })}
           className={

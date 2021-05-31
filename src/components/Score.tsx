@@ -1,16 +1,16 @@
 import { useNavigate, useParams } from "react-router";
 import { useQuiz } from "../context/QuizContext";
-import { useTheme } from "../context/ThemeContext";
 
 export const Score = () => {
   const { state } = useQuiz();
   let correctRatio = (state.right / 8) * 100;
   let wrongRatio = (state.wrong / 8) * 100;
   let unattemptedRatio = (state.unattempted / 8) * 100;
-  const { quizName } = useParams();
+  const { quizId } = useParams();
   let navigate = useNavigate();
   const { dispatch } = useQuiz();
   const themeStored = localStorage.getItem("theme");
+
   return (
     <>
       <span
@@ -128,28 +128,43 @@ export const Score = () => {
             </div>
           </div>
         </div>
-        <div
-          className="flex ml-auto mr-auto bg-green-300 p-2 mb-24"
-          onClick={() => {
-            dispatch({ type: "reset" });
-            navigate(`/quiz/${quizName}/question/1`);
-          }}
-        >
-          <button className="p-0.5">Play again</button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 p-0.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        <div className="flex">
+          <div
+            className="flex ml-auto mr-auto bg-green-300 p-2 mb-24"
+            onClick={() => {
+              dispatch({ type: "reset" });
+              navigate(`/quiz/${quizId}`, { replace: true });
+            }}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-            />
-          </svg>
+            <button className="p-0.5">Play again</button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 p-0.5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+              />
+            </svg>
+          </div>
+          <div
+            className="flex ml-auto mr-auto bg-green-300 p-2 mb-24"
+            onClick={() => {
+              dispatch({ type: "reset" });
+            }}
+          >
+            <button
+              className="p-0.5"
+              onClick={() => navigate(`/`, { replace: true })}
+            >
+              Go home
+            </button>
+          </div>
         </div>
       </div>
     </>
