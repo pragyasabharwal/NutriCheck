@@ -8,20 +8,20 @@ import { Quiz } from "../../types/main";
 export const Home = () => {
   const themeStored = localStorage?.getItem("theme");
   const [data, setData] = useState<Quiz[]>([]);
-  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
+  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     (async function () {
       try {
-        const resp = await axios.get(
-          `${REACT_APP_BASE_URL}/quiz`
-        );
+        const resp = await axios.get(`${REACT_APP_BASE_URL}/quiz`);
         setData(resp.data.quizzes);
       } catch (err) {
         console.log(err);
       }
     })();
   }, [data]);
+
+  window.onbeforeunload = null;
 
   return (
     <>
@@ -40,9 +40,9 @@ export const Home = () => {
           <div className="flex justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-20 w-20"
+              className="h-20 w-20 text-green-500"
               viewBox="0 0 20 20"
-              fill="green"
+              fill= "currentColor"
             >
               <path
                 fillRule="evenodd"
