@@ -20,7 +20,7 @@ export function Question() {
     (async function () {
       try {
         const resp = await axios.get(
-          `${REACT_APP_BASE_URL}/${quizId}`
+          `${REACT_APP_BASE_URL}/quiz/${quizId}`
         );
         setData(resp.data.quiz);
       } catch (err) {
