@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "src/context/AuthProvider";
-import { Modal } from "../Modal"
 
 export const Login = () => {
   const themeStored = localStorage.getItem("theme");
@@ -31,7 +30,7 @@ export const Login = () => {
       </div>
       <input
         placeholder="Email"
-        className="m-auto my-10 p-2 border-green-400"
+        className="m-auto my-10 p-2 border-green-400 text-black"
         onChange={(e) => setUsername(e.target.value)}
       ></input>
       <input placeholder="Password" type="password"  className=" m-auto m-4 p-2" onChange={(e) => setPassword(e.target.value)}></input>
@@ -44,6 +43,7 @@ export const Login = () => {
       >
         Login
       </button>
+      <div className="h-96"></div>
     </div>
     </>
   );
