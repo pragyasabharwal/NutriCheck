@@ -10,8 +10,6 @@ export const Login = () => {
   const [username, setUsername] = useState<string>()
   const [password, setPassword] = useState<string>()
 
-  console.log(login)
-
   return (
     <>
     <div
@@ -33,7 +31,7 @@ export const Login = () => {
         className="m-auto my-10 p-2 border-green-400 text-black"
         onChange={(e) => setUsername(e.target.value)}
       ></input>
-      <input placeholder="Password" type="password"  className=" m-auto m-4 p-2" onChange={(e) => setPassword(e.target.value)}></input>
+      <input placeholder="Password" type="password"  className="text-black m-auto m-4 p-2" onChange={(e) => setPassword(e.target.value)}></input>
       <button
         className="my-10 ring ring-green-400 w-20 p-2 m-auto"
         onClick={() => {

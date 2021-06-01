@@ -5,7 +5,7 @@ import { useAuth } from "src/context/AuthProvider";
 export const Nav = () => {
   const { setTheme, lightTheme, darkTheme } = useTheme();
   const themeStored = localStorage.getItem("theme");
-  const { login, loginUserWithCredentials } = useAuth();
+  const { login, loginUserWithCredentials, setLogin } = useAuth();
 
   function themeFunc() {
     if (themeStored === "dark") {
