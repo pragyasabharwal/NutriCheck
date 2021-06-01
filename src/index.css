@@ -16,17 +16,24 @@ code {
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-.body-dark{
+.body-dark {
   --tw-bg-opacity: 1;
   background-color: #1a202c;
   font-family: 'Poppins', sans-serif;
-
+  transition: background-color 0.4s;
 }
-html, body, .App, .App>div {
+
+html,
+body,
+.App,
+.App>div {
   height: 100%
 }
-.body-light{
+
+.body-light {
   --tw-bg-opacity: 1;
   background-color: white;
   font-family: 'Poppins', sans-serif;
+  transition: background-color 0.4s;
+
 }
