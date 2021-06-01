@@ -1,9 +1,11 @@
 import { useTheme } from "../context/ThemeContext";
+import { Link } from "react-router-dom";
+import { useAuth } from "src/context/AuthProvider";
 
 export const Nav = () => {
   const { setTheme, lightTheme, darkTheme } = useTheme();
-
   const themeStored = localStorage.getItem("theme");
+  const { login, loginUserWithCredentials } = useAuth();
 
   function themeFunc() {
     if (themeStored === "dark") {
@@ -17,10 +19,7 @@ export const Nav = () => {
 
   return (
     <div className="flex justify-between shadow-xl mb-10 bg-green-400">
-      <button
-        className="text-white cursor-pointer py-6 px-6 "
-        onClick={() => themeFunc()}
-      >
+      <button className="text-black cursor-pointer py-6 px-6 flex">
         {themeStored === "dark" ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -28,6 +27,7 @@ export const Nav = () => {
             fill="none"
             viewBox="0 0 24 24"
             stroke="black"
+            onClick={() => themeFunc()}
           >
             <path
               strokeLinecap="round"
@@ -43,6 +43,7 @@ export const Nav = () => {
             fill="none"
             viewBox="0 0 24 24"
             stroke="black"
+            onClick={() => themeFunc()}
           >
             <path
               strokeLinecap="round"
@@ -52,6 +53,9 @@ export const Nav = () => {
             />
           </svg>
         )}
+        <Link to="/" className="px-2">
+          Home
+        </Link>
       </button>
       <button className="py-6 px-6 cursor-pointer flex bg-green-400">
         <svg
@@ -68,9 +72,15 @@ export const Nav = () => {
             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
           />
         </svg>
-        <span>
-          Login
-        </span>
+        <Link to="/Login">
+          <span
+            onClick={() => {
+              login && loginUserWithCredentials("wrong", "wrong");
+            }}
+          >
+            {login ? "Logout" : "Login"}
+          </span>
+        </Link>
       </button>
     </div>
   );

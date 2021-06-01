@@ -22,6 +22,14 @@ export type ThemeContextType = {
   setTheme: (value: Theme) => void;
 };
 
+export type AuthContextType = {
+  login: boolean;
+  setLogin: (value: login) => void;
+  loginUserWithCredentials: (username: string | undefined, password:  string | undefined) => void;
+  modal: boolean | undefined;
+  setModal: (value: modal) => void;
+}
+
 export type Props = {
   children: React.ReactNode;
 };

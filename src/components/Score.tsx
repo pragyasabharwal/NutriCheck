@@ -1,5 +1,7 @@
 import { useNavigate, useParams } from "react-router";
 import { useQuiz } from "../context/QuizContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 export const Score = () => {
   const { state } = useQuiz();
@@ -45,20 +47,10 @@ export const Score = () => {
           <div>{state.score}/40</div>
         </div>
         <div className="m-10 flex justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 self-start bg-green-500 ml-2 mr-2 rounded-xl"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 13l4 4L19 7"
-            />
-          </svg>
+          <FontAwesomeIcon
+            icon={faCheckCircle}
+            className="text-2xl self-start text-green-500 ml-2 mr-2 rounded-xl"
+          />
           <div>
             <div
               className={themeStored === "dark" ? "text-white" : "text-black"}
@@ -78,7 +70,7 @@ export const Score = () => {
             className="h-6 w-6 self-start bg-red-500 ml-2 mr-2 rounded-xl p-0.5"
             fill="none"
             viewBox="0 0 24 24"
-            stroke="currentColor"
+            stroke="white"
           >
             <path
               strokeLinecap="round"
@@ -106,7 +98,7 @@ export const Score = () => {
             className="h-6 w-6 self-start bg-yellow-500 ml-2 mr-2 rounded-xl p-0.5"
             fill="none"
             viewBox="0 0 24 24"
-            stroke="currentColor"
+            stroke="white"
           >
             <path
               strokeLinecap="round"
