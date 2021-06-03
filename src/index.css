@@ -37,3 +37,7 @@ body,
   transition: background-color 0.4s;
 
 }
+.eye{
+  top: 0.6em;
+  left: 20em;
+}

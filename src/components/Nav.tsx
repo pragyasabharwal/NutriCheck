@@ -5,7 +5,7 @@ import { useAuth } from "src/context/AuthProvider";
 export const Nav = () => {
   const { setTheme, lightTheme, darkTheme } = useTheme();
   const themeStored = localStorage.getItem("theme");
-  const { login, loginUserWithCredentials, setLogin } = useAuth();
+  const { login, setLogin, setToken } = useAuth();
 
   function themeFunc() {
     if (themeStored === "dark") {
@@ -74,9 +74,11 @@ export const Nav = () => {
         </svg>
         <Link to="/Login">
           <span
-            onClick={() => {
-              login && loginUserWithCredentials("wrong", "wrong");
-            }}
+          onClick={()=>{
+            localStorage.removeItem("login")
+            setLogin(false)
+            setToken(null)
+          }}
           >
             {login ? "Logout" : "Login"}
           </span>

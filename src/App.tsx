@@ -11,7 +11,8 @@ import { Nav } from "./components/Nav";
 import { Login } from "./components/Auth/Login";
 import { PrivateRoute } from "./components/Auth/PrivateRoute";
 import axios from "axios";
-import { Quiz } from "./types/main"
+import { Quiz } from "./types/main";
+import { Signup } from "./components/Auth/Signup"
 
 function App() {
   const { setTheme, darkTheme } = useTheme();
@@ -25,7 +26,7 @@ function App() {
 
   const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
-  useEffect(() => {
+  const getData = () => {
     let componentMounted = true;
     (async function () {
       try {
@@ -40,7 +41,11 @@ function App() {
     return () => {
       componentMounted = false;
     };
-  }, [data]);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div
@@ -48,12 +53,16 @@ function App() {
     >
       <Nav />
       <Routes>
-        <Route path="/quiz/:quizId" element={<Question />} />
+        <PrivateRoute path="/quiz/:quizId" element={<Question />} />
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/quiz/:quizId/score" element={<Score />} />
+        <Route path="/signup" element={<Signup />} />
+        <PrivateRoute path="/quiz/:quizId/score" element={<Score />} />
         {data?.map(({ _id }) => (
-          <PrivateRoute path={`/quiz/${_id}/rules`} element={<Rules value = {_id}/>} />
+          <PrivateRoute
+            path={`/quiz/${_id}/rules`}
+            element={<Rules value={_id} />}
+          />
         ))}
       </Routes>
     </div>

@@ -1,37 +1,28 @@
 import { useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useAuth } from "src/context/AuthProvider";
-import axios from "axios"
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-export const Login = () => {
+export const Signup = () => {
   const themeStored = localStorage.getItem("theme");
-  const { setToken, setLogin, login } = useAuth();
-  const { state }: any = useLocation();
   const navigate = useNavigate();
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
-  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
+  const [confirmPW, setConfirmPW] = useState<string>("");
+  const [email, setMail] = useState<string>("");
+  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
-  
-  const loginUser : any = async (req: Request, res: Response) => {
+  const signupUser = async () => {
     try {
-      const res = await axios.post(
-        `${REACT_APP_BASE_URL}/login`,
+      const { data } = await axios.post(
+        `${REACT_APP_BASE_URL}/signup`,
         {
           user: {
+            email,
             username,
-            password
-          }
+            password,
+          },
         }
       );
-      if (res.status === 200) {
-        localStorage?.setItem(
-          "login",
-          JSON.stringify({ isUserLoggedIn: true, token: res.data.token })
-        );
-      }
-      setLogin(true);
-      setToken(res.data.token);
     } catch (err) {
       console.log(err);
     }
@@ -53,33 +44,42 @@ export const Login = () => {
               : "text-3xl text-black"
           }
         >
-          Welcome back!
+          Sign Up
         </div>
+        <input
+          placeholder="Email"
+          className="m-auto mt-10 p-2 border-green-400 text-black rounded-sm"
+          onChange={(e) => setMail(e.target.value)}
+        ></input>
         <input
           placeholder="Username"
           className="m-auto my-10 p-2 border-green-400 text-black rounded-sm"
           onChange={(e) => setUsername(e.target.value)}
         ></input>
-        <div className="relative">
           <input
             placeholder="Password"
             type="password"
             className="text-black m-auto m-4 p-2 rounded-sm	"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
-        </div>
+          <input
+            placeholder="Confirm Password"
+            type="password"
+            onChange={(e) => setConfirmPW(e.target.value)}
+            className="text-black m-auto mt-8 p-2 rounded-sm	"
+          />
         <button
+          disabled={
+            password === confirmPW && password.length > 0 ? false : true
+          }
           className="my-10 ring ring-green-400 w-20 p-2 m-auto"
           onClick={() => {
-            loginUser()
-            navigate(state ? state?.from : "/");
+            signupUser();
+            navigate("/login");
           }}
         >
-          Login
+          Sign Up
         </button>
-        <span>
-          Not a user yet? <Link to="/signup" className="underline cursor-pointer">Sign Up</Link>
-        </span>
         <div className="h-96"></div>
       </div>
     </>
