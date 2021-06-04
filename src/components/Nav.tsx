@@ -1,11 +1,13 @@
 import { useTheme } from "../context/ThemeContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate} from "react-router-dom";
 import { useAuth } from "src/context/AuthProvider";
 
 export const Nav = () => {
   const { setTheme, lightTheme, darkTheme } = useTheme();
   const themeStored = localStorage.getItem("theme");
   const { login, setLogin, setToken } = useAuth();
+  const navigate = useNavigate()
+  const { state }: any = useLocation();
 
   function themeFunc() {
     if (themeStored === "dark") {
@@ -72,7 +74,7 @@ export const Nav = () => {
             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
           />
         </svg>
-        <Link to="/Login">
+        <Link to="/login">
           <span
           onClick={()=>{
             localStorage.removeItem("login")

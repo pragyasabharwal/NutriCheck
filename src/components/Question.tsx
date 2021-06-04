@@ -158,8 +158,8 @@ export function Question() {
                       }
                       className={
                         themeStored === "dark"
-                          ? "text-white border-0 border-white-500 px-7 py-3 mb-52 ring-4 ring-green-400"
-                          : "text-black border-0 border-black-500 px-7 py-3 mb-52 ring-4 ring-green-400"
+                          ? "text-white border-0 border-white-500 px-7 py-3 mb-52 ring-4 ring-green-400 cursor-pointer"
+                          : "text-black border-0 border-black-500 px-7 py-3 mb-52 ring-4 ring-green-400 cursor-pointer"
                       }
                     >
                       Next →

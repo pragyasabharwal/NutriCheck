@@ -25,13 +25,14 @@ export const Login = () => {
         }
       );
       if (res.status === 200) {
+        console.log('check')
         localStorage?.setItem(
           "login",
           JSON.stringify({ isUserLoggedIn: true, token: res.data.token })
         );
+        setLogin(true);
+        setToken(res.data.token);
       }
-      setLogin(true);
-      setToken(res.data.token);
     } catch (err) {
       console.log(err);
     }

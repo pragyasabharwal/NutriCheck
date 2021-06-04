@@ -1,8 +1,7 @@
 import "./index.css";
 import "./App.css";
 import { useEffect, useState } from "react";
-import { useTheme } from "./context/ThemeContext";
-import { Home } from "./components/Home/Home";
+import { Home } from "./components/Home/Home"
 import { Route, Routes } from "react-router-dom";
 import { Question } from "./components/Question";
 import { Score } from "./components/Score";
@@ -13,16 +12,12 @@ import { PrivateRoute } from "./components/Auth/PrivateRoute";
 import axios from "axios";
 import { Quiz } from "./types/main";
 import { Signup } from "./components/Auth/Signup"
+import { useTheme } from "./context/ThemeContext";
 
 function App() {
-  const { setTheme, darkTheme } = useTheme();
   const [data, setData] = useState<Quiz[]>([]);
   const themeStored = localStorage.getItem("theme");
-
-  useEffect(() => {
-    themeStored === null && setTheme(darkTheme);
-    localStorage?.setItem("theme", themeStored ? themeStored : "dark");
-  }, []);
+  const { darkTheme, setTheme } = useTheme()
 
   const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -45,6 +40,12 @@ function App() {
 
   useEffect(() => {
     getData();
+  }, []);
+
+    
+  useEffect(() => {
+    themeStored === null && setTheme(darkTheme);
+    localStorage?.setItem("theme", themeStored ? themeStored : "dark");
   }, []);
 
   return (

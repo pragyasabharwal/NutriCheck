@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router";
 import { useQuiz } from "../context/QuizContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCoins } from "@fortawesome/free-solid-svg-icons";
 
 export const Score = () => {
   const { state } = useQuiz();
@@ -14,151 +15,112 @@ export const Score = () => {
   const themeStored = localStorage.getItem("theme");
 
   return (
-    <>
-      <span
-        className={
-          themeStored === "dark" ? "text-white text-xl" : "text-black text-xl"
-        }
-      >
-        Thanks for taking this quiz
-      </span>
-      <div className="mt-10 flex justify-evenly flex-col">
+    <div className={themeStored === "dark" ? "text-white" : "text-black"}>
+      <div className="mt-10 flex justify-evenly place-content-center flex-col">
         <div className="mb-10">
-          <div className={themeStored === "dark" ? "text-white" : "text-black"}>
-            Accuracy: {correctRatio}%
-          </div>
-          <div className="flex w-40 ml-auto mr-auto justify-center">
+          <div>Accuracy: {correctRatio}%</div>
+          <div className="flex w-96 ml-auto mr-auto justify-center">
             <div
               style={{
                 width: `${correctRatio}%`,
               }}
-              className="bg-green-500 h-5"
+              className="bg-green-500 h-5 rounded-l-md"
             ></div>
             <div
               style={{
                 width: `${wrongRatio + unattemptedRatio}%`,
               }}
-              className="bg-red-500 h-5"
+              className="bg-red-500 h-5 rounded-r-md"
             ></div>
           </div>
         </div>
-        <div className="mb-10 bg-green-300 w-40 mr-auto ml-auto p-2">
-          <div>Score</div>
-          <div>{state.score}/40</div>
-        </div>
-        <div className="m-10 flex justify-center">
+        <div className="mb-10 bg-white-800 w-40 mr-auto ml-auto p-2 flex justify-between">
+          <div>
+            <div className="text-sm pb-2 text-gray-400">Score</div>
+            <div className="font-extrabold">{state.score}/40</div>
+          </div>
           <FontAwesomeIcon
-            icon={faCheckCircle}
-            className="text-2xl self-start text-green-500 ml-2 mr-2 rounded-xl"
+            icon={faCoins}
+            className="text-yellow-500 opacity-60 text-5xl self-center"
           />
-          <div>
-            <div
-              className={themeStored === "dark" ? "text-white" : "text-black"}
-            >
-              Correct
-            </div>
-            <div
-              className={themeStored === "dark" ? "text-white" : "text-black"}
-            >
-              {state.right}
-            </div>
-          </div>
         </div>
-        <div className="m-10 flex justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 self-start bg-red-500 ml-2 mr-2 rounded-xl p-0.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="white"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
+        <span className="text-2xl">Performance Stats</span>
+        <div className="flex justify-center m-10 flex-wrap">
+          <div className="mb-10 w-40 mr-2 p-2 flex">
+            <FontAwesomeIcon
+              icon={faCheckCircle}
+              className="text-5xl self-center text-green-500 ml-2 mr-2 rounded-xl opacity-60"
             />
-          </svg>
-          <div>
-            <div
-              className={themeStored === "dark" ? "text-white" : "text-black"}
-            >
-              Wrong
-            </div>
-            <div
-              className={themeStored === "dark" ? "text-white" : "text-black"}
-            >
-              {state.wrong}
+            <div>
+              <div className="text-4xl">{state.right}</div>
+              <div className="text-gray-400 text-sm">Correct</div>
             </div>
           </div>
-        </div>
-        <div className="m-10 flex justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 self-start bg-yellow-500 ml-2 mr-2 rounded-xl p-0.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="white"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M20 12H4"
-            />
-          </svg>
-          <div>
-            <div
-              className={themeStored === "dark" ? "text-white" : "text-black"}
-            >
-              Unattempted
-            </div>
-            <div
-              className={themeStored === "dark" ? "text-white" : "text-black"}
-            >
-              {state.unattempted}
-            </div>
-          </div>
-        </div>
-        <div className="flex">
-          <div
-            className="flex ml-auto mr-auto bg-green-300 p-2 mb-24"
-            onClick={() => {
-              dispatch({ type: "reset" });
-              navigate(`/quiz/${quizId}`, { replace: true });
-            }}
-          >
-            <button className="p-0.5">Play again</button>
+          <div className="mb-10 mr-2 w-40 p-2 flex">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 p-0.5"
+              className="h-12 w-13 self-center bg-red-500 ml-2 mr-2 rounded-3xl p-0.5 opacity-60"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor"
+              stroke="white"
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                d="M6 18L18 6M6 6l12 12"
               />
             </svg>
+            <div>
+              <div className="text-4xl">{state.wrong}</div>
+              <div className="text-gray-400 text-sm">Wrong</div>
+            </div>
           </div>
+          <div className="w-40 p-2 flex">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-12 w-13 bg-yellow-500 rounded-3xl m-0.5 p-0.5 opacity-60"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="white"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M20 12H4"
+              />
+            </svg>
+            <div>
+              <div className="text-4xl">{state.unattempted}</div>
+              <div className="text-gray-400 text-sm">Unattempted</div>
+            </div>
+          </div>
+        </div>
+        <div className="flex m-auto flex-col">
           <div
-            className="flex ml-auto mr-auto bg-green-300 p-2 mb-24"
+            className="flex w-48 py-2 place-content-center p-2 hover:bg-blue-700 hover:text-white cursor-pointer ring-4 ring-blue-400 "
             onClick={() => {
               dispatch({ type: "reset" });
+              navigate(`/quiz/${quizId}`, { replace: true });
             }}
           >
-            <button
-              className="p-0.5"
-              onClick={() => navigate(`/`, { replace: true })}
-            >
-              Go home
-            </button>
+            <button>Play again</button>
+          </div>
+          <div
+            onClick={() => {
+              navigate(`/`, { replace: true });
+              dispatch({ type: "reset" });
+            }}
+            className="flex w-48 py-2 my-8 place-content-center p-2 hover:bg-blue-700 hover:text-white cursor-pointer ring-4 ring-blue-400"
+          >
+            <button>Go home</button>
+          </div>
+          <div className="flex w-48 py-2 place-content-center p-2 mb-24 hover:bg-blue-700 hover:text-white cursor-pointer ring-4 ring-blue-400 ">
+            <button>View Answers</button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
