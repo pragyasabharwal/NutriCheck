@@ -6,6 +6,7 @@ import { Dashboard } from "../Dashboard";
 import { Quiz } from "../../types/main";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
   const themeStored = localStorage?.getItem("theme");
@@ -27,7 +28,7 @@ export const Home = () => {
     return () => {
       componentMounted = false;
     };
-  }, [data]);
+  }, []);
 
   window.onbeforeunload = null;
 

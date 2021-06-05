@@ -1,13 +1,14 @@
 import { useTheme } from "../context/ThemeContext";
-import { Link, useLocation, useNavigate} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "src/context/AuthProvider";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export const Nav = () => {
   const { setTheme, lightTheme, darkTheme } = useTheme();
   const themeStored = localStorage.getItem("theme");
-  const { login, setLogin, setToken } = useAuth();
-  const navigate = useNavigate()
-  const { state }: any = useLocation();
+  const { token, login, setLogin, initials, setInitials, setToken, setupAuthHeaderForServiceCalls } = useAuth();
+  const navigate = useNavigate();
 
   function themeFunc() {
     if (themeStored === "dark") {
@@ -17,7 +18,8 @@ export const Nav = () => {
       localStorage?.setItem("theme", "dark");
       setTheme(darkTheme);
     }
-  }
+  }  
+  
 
   return (
     <div className="flex justify-between shadow-xl mb-10 bg-green-400">
@@ -60,27 +62,21 @@ export const Nav = () => {
         </Link>
       </button>
       <button className="py-6 px-6 cursor-pointer flex bg-green-400">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-          />
-        </svg>
+        {initials && initials?.length > 0 && (
+          <span className="mr-1">
+            Hi <span className="uppercase font-black">{initials}</span>,
+          </span>
+        )}
         <Link to="/login">
+          <div></div>
           <span
-          onClick={()=>{
-            localStorage.removeItem("login")
-            setLogin(false)
-            setToken(null)
-          }}
+            onClick={() => {
+              localStorage.removeItem("login");
+              setInitials("");
+              setupAuthHeaderForServiceCalls(null);
+              setLogin(false);
+              setToken(null);
+            }}
           >
             {login ? "Logout" : "Login"}
           </span>

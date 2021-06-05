@@ -13,6 +13,7 @@ import axios from "axios";
 import { Quiz } from "./types/main";
 import { Signup } from "./components/Auth/Signup"
 import { useTheme } from "./context/ThemeContext";
+import { UserData } from "./components/UserData";
 
 function App() {
   const [data, setData] = useState<Quiz[]>([]);
@@ -54,6 +55,7 @@ function App() {
     >
       <Nav />
       <Routes>
+        <Route path="/user" element={<UserData />} />
         <PrivateRoute path="/quiz/:quizId" element={<Question />} />
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

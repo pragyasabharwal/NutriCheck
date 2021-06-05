@@ -1,10 +1,24 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Props, AuthContextType } from "../types/main";
+import axios from "axios";
+
+const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const AuthContext = createContext<AuthContextType>(undefined!);
 
+function setupAuthHeaderForServiceCalls(token: string | null) {
+  console.log('called again', token);
+  if (token) {
+    return (axios.defaults.headers.common["Authorization"] = token);
+  }
+  delete axios.defaults.headers.common["Authorization"];
+}
+
 export const AuthProvider = ({ children }: Props) => {
   const [modal, setModal] = useState<boolean | undefined>();
+  const [initials, setInitials] = useState<string | undefined>();
+  const [username, setUsername] = useState<string>();
+  const [password, setPassword] = useState<string>();
 
   const loginStatus: any = localStorage?.getItem("login");
 
@@ -13,11 +27,66 @@ export const AuthProvider = ({ children }: Props) => {
     token: null,
   };
 
+ 
   const [login, setLogin] = useState(isUserLoggedIn);
   const [token, setToken] = useState(savedToken);
+
+  useEffect(()=>{
+
+    const storedStatus: any = localStorage?.getItem("login");
+    const {  token } = JSON.parse(storedStatus) || { token: null }
+    console.log( 'token', token )
+    setupAuthHeaderForServiceCalls(token);
+
+  }, [token])
+
+  const loginUser: any = async (req: Request, res: Response) => {
+    try {
+      const res = await axios.post(`${REACT_APP_BASE_URL}/login`, {
+        user: {
+          username,
+          password,
+        },
+      });
+      if (res.status === 200) {
+        console.log(res);
+        localStorage?.setItem(
+          "login",
+          JSON.stringify({ isUserLoggedIn: true, token: res.data.token })
+        );
+        setInitials(res.data.username.slice(0, 2));
+        setToken(res.data.token);
+        setupAuthHeaderForServiceCalls(res.data.token);
+        setLogin(true);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  function loginToken(token: string | null) {
+    
+  }
+
   return (
     <AuthContext.Provider
-      value={{ login, setLogin, modal, setModal, token, setToken }}
+      value={{
+        login,
+        setLogin,
+        modal,
+        setModal,
+        token,
+        setToken,
+        initials,
+        setInitials,
+        setupAuthHeaderForServiceCalls,
+        loginUser,
+        username,
+        password,
+        setUsername,
+        setPassword,
+        loginToken,
+      }}
     >
       {children}
     </AuthContext.Provider>

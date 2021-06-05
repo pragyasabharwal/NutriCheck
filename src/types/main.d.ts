@@ -29,6 +29,15 @@ export type AuthContextType = {
   setModal: (value: modal) => void;
   token: null | string
   setToken: (value: token) => void;
+  initials: string | undefined;
+  setInitials: (value: initials) => void;
+  setupAuthHeaderForServiceCalls: (token: string | null) => string | undefined ;
+  loginUser: any,
+  username: string | undefined;
+  password: string | undefined;
+  setUsername: (value: username) => void;
+  setPassword: (value: password) => void;
+  loginToken: any
 };
 
 export type Props = {

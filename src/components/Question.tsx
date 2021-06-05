@@ -17,17 +17,22 @@ export function Question() {
   const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
 
   useEffect(() => {
+    let componentMounted = true;
     (async function () {
       try {
         const resp = await axios.get(
           `${REACT_APP_BASE_URL}/quiz/${quizId}`
         );
+        if(componentMounted)
         setData(resp.data.quiz);
       } catch (err) {
         console.log(err);
       }
     })();
-  }, [data, quizId]);
+    return () => {
+      componentMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     state.initialQuestion === 8 && navigate(`/quiz/${quizId}/score`);
