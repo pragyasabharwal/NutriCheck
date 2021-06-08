@@ -1,7 +1,7 @@
 import "./index.css";
 import "./App.css";
 import { useEffect, useState } from "react";
-import { Home } from "./components/Home/Home"
+import { Home } from "./components/Home/Home";
 import { Route, Routes } from "react-router-dom";
 import { Question } from "./components/Question";
 import { Score } from "./components/Score";
@@ -11,14 +11,17 @@ import { Login } from "./components/Auth/Login";
 import { PrivateRoute } from "./components/Auth/PrivateRoute";
 import axios from "axios";
 import { Quiz } from "./types/main";
-import { Signup } from "./components/Auth/Signup"
+import { Signup } from "./components/Auth/Signup";
 import { useTheme } from "./context/ThemeContext";
 import { UserData } from "./components/UserData";
+import { useAuth } from "./context/AuthProvider";
+import { Scoreboard } from "./components/Scoreboard/Scoreboard";
 
 function App() {
   const [data, setData] = useState<Quiz[]>([]);
   const themeStored = localStorage.getItem("theme");
-  const { darkTheme, setTheme } = useTheme()
+  const { darkTheme, setTheme } = useTheme();
+  const { token } = useAuth();
 
   const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -43,7 +46,6 @@ function App() {
     getData();
   }, []);
 
-    
   useEffect(() => {
     themeStored === null && setTheme(darkTheme);
     localStorage?.setItem("theme", themeStored ? themeStored : "dark");
@@ -56,6 +58,7 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/user" element={<UserData />} />
+        <Route path="/scoreboard" element={<Scoreboard />} />
         <PrivateRoute path="/quiz/:quizId" element={<Question />} />
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { color } from "./utils/color";
 import { option } from "./utils/option";
 import React, { useState, useEffect } from "react";
@@ -14,17 +14,18 @@ export function Question() {
   const navigate = useNavigate();
   const [count, setCount] = useState(30);
   const [data, setData] = useState([]);
-  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
+  const [questions, setQuestions] = useState([])
+  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     let componentMounted = true;
     (async function () {
       try {
-        const resp = await axios.get(
-          `${REACT_APP_BASE_URL}/quiz/${quizId}`
-        );
-        if(componentMounted)
-        setData(resp.data.quiz);
+        const resp = await axios.get(`${REACT_APP_BASE_URL}/quiz/${quizId}`);
+        if (componentMounted) {
+          setData(resp.data.quiz) 
+        }
+        
       } catch (err) {
         console.log(err);
       }
@@ -56,9 +57,11 @@ export function Question() {
   }, [count, dispatch, navigate, state.initialQuestion]);
 
   window.onbeforeunload = (e: any) => {
-    e.preventDefault()
-    e.returnValue = '';
-  }
+    e.preventDefault();
+    e.returnValue = "";
+  };
+
+  console.log(questions.length)
 
   return (
     <>
@@ -72,6 +75,8 @@ export function Question() {
         >
           Time: 0:{count}
         </span>
+        <Link to="/user">check user data</Link>
+
         <div
           className={
             themeStored === "dark"
@@ -103,7 +108,7 @@ export function Question() {
                 points,
                 negativePoint,
               }: {
-                _id: string
+                _id: string;
                 question: string;
                 options: [];
                 points: number;
