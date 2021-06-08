@@ -6,7 +6,7 @@ import { Dashboard } from "../Dashboard";
 import { Quiz } from "../../types/main";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
   const themeStored = localStorage?.getItem("theme");
@@ -47,10 +47,7 @@ export const Home = () => {
       ) : (
         <>
           <div className="flex justify-center">
-            <FontAwesomeIcon
-              icon={faCheckCircle}
-              className="text-green-500 text-6xl"
-            />
+            <FontAwesomeIcon icon={faCheckCircle} className="text-green-500 text-6xl"/>
             <span
               className={
                 themeStored === "dark"
@@ -58,8 +55,7 @@ export const Home = () => {
                   : "text-black text-3xl ml-4 self-center"
               }
             >
-              <span className="text-6xl">N</span>utri
-              <span className="text-6xl">C</span>heck
+              <span className="text-6xl">N</span>utri<span className="text-6xl">C</span>heck
             </span>
           </div>
           <div
@@ -69,7 +65,8 @@ export const Home = () => {
                 : "text-black text-xl mt-10 w-3/4 mr-auto ml-auto"
             }
           >
-            Some fun quizzes for you to keep your food habits in check
+          Some fun quizzes for you to keep your
+          food habits in check 
           </div>
           <Dashboard data={data} />
           <Footer />

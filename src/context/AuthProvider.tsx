@@ -6,12 +6,19 @@ const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const AuthContext = createContext<AuthContextType>(undefined!);
 
+function setupAuthHeaderForServiceCalls(token: string | null) {
+  console.log('called again', token);
+  if (token) {
+    return (axios.defaults.headers.common["Authorization"] = token);
+  }
+  delete axios.defaults.headers.common["Authorization"];
+}
+
 export const AuthProvider = ({ children }: Props) => {
   const [modal, setModal] = useState<boolean | undefined>();
   const [initials, setInitials] = useState<string | undefined>();
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
-  const [userModal, setUserModal] = useState(false)
 
   const loginStatus: any = localStorage?.getItem("login");
 
@@ -20,19 +27,18 @@ export const AuthProvider = ({ children }: Props) => {
     token: null,
   };
 
-  function setupAuthHeaderForServiceCalls(token: string | null) {
-    console.log("called again", token);
-    if (token) {
-      console.log("is this being called on refresh");
-      return (axios.defaults.headers.common["Authorization"] = token);
-    }
-    delete axios.defaults.headers.common["Authorization"];
-  }
-
+ 
   const [login, setLogin] = useState(isUserLoggedIn);
   const [token, setToken] = useState(savedToken);
 
-  token && setupAuthHeaderForServiceCalls(token);
+  useEffect(()=>{
+
+    const storedStatus: any = localStorage?.getItem("login");
+    const {  token } = JSON.parse(storedStatus) || { token: null }
+    console.log( 'token', token )
+    setupAuthHeaderForServiceCalls(token);
+
+  }, [token])
 
   const loginUser: any = async (req: Request, res: Response) => {
     try {
@@ -58,7 +64,9 @@ export const AuthProvider = ({ children }: Props) => {
     }
   };
 
-  function loginToken(token: string | null) {}
+  function loginToken(token: string | null) {
+    
+  }
 
   return (
     <AuthContext.Provider
@@ -78,8 +86,6 @@ export const AuthProvider = ({ children }: Props) => {
         setUsername,
         setPassword,
         loginToken,
-        userModal,
-        setUserModal
       }}
     >
       {children}

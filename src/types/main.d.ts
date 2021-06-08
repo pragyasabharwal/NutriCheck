@@ -37,9 +37,7 @@ export type AuthContextType = {
   password: string | undefined;
   setUsername: (value: username) => void;
   setPassword: (value: password) => void;
-  loginToken: any;
-  userModal: boolean;
-  setUserModal: (value: userModal) => void;
+  loginToken: any
 };
 
 export type Props = {
@@ -64,13 +62,3 @@ export type Quiz = {
   questions: Question[];
   imageUrl: string;
 };
-
-export type Scores = {
-  _id: number;
-  username: string;
-  score: number;
-}
-
-// export type Data = {
-//   questions: Question[]
-// }

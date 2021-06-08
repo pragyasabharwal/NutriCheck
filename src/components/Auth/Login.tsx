@@ -39,7 +39,8 @@ export const Login = () => {
           className="my-10 ring ring-green-400 w-20 p-2 m-auto"
           onClick={() => {
             loginUser();
-            navigate(state ? state?.from : "/");
+            // loginToken(token)
+            // navigate(state ? state?.from : "/");
           }}
         >
           Login
@@ -50,6 +51,7 @@ export const Login = () => {
             Sign Up
           </Link>
         </span>
+        <Link to ="/user">check user data</Link>
         <div className="h-96"></div>
       </div>
     </div>
