@@ -44,7 +44,7 @@ export const Scoreboard = () => {
             <img src={generator.generateRandomAvatar()} className="responsive-img sm:w-28"></img>
             <div className="flex flex-col p-6">
               <div>PLAYER</div>
-              <div className="p-6 text-lg capitalize">{username}</div>
+              <div className="p-6 text-lg capitalize">{username.slice(0, 6)}</div>
             </div>
             <div className="flex flex-col p-6">
               <div>SCORE</div>
