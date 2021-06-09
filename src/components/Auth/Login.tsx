@@ -5,6 +5,7 @@ import "./Login.css";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { REACT_APP_BASE_URL } from "../utils/serverUrl"
 
 export const Login = () => {
   const themeStored = localStorage.getItem("theme");
@@ -12,7 +13,6 @@ export const Login = () => {
   const { state }: any = useLocation();
   const navigate = useNavigate();
   const [showpw, setShowPw] = useState(false)
-  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
   return (
     <div className={themeStored === "dark" ? "text-gray-400" : "text-black"}>

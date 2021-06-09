@@ -1,8 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Props, AuthContextType } from "../types/main";
 import axios from "axios";
-
-const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
+import { REACT_APP_BASE_URL } from "../components/utils/serverUrl"
 
 const AuthContext = createContext<AuthContextType>(undefined!);
 

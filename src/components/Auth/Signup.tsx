@@ -4,6 +4,7 @@ import axios from "axios";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { REACT_APP_BASE_URL } from "../utils/serverUrl"
 
 export const Signup = () => {
   const themeStored = localStorage.getItem("theme");
@@ -15,7 +16,6 @@ export const Signup = () => {
   const [error, setError] = useState("");
   const [showpw, setShowPw] = useState(false)
   const [showpw2, setShowPw2] = useState(false)
-  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const signupUser = async () => {
     try {

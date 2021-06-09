@@ -16,14 +16,13 @@ import { useTheme } from "./context/ThemeContext";
 import { useAuth } from "./context/AuthProvider";
 import { Scoreboard } from "./components/Scoreboard/Scoreboard";
 import { Answers } from "./components/Answers";
+import { REACT_APP_BASE_URL } from "./components/utils/serverUrl"
 
 function App() {
   const [data, setData] = useState<Quiz[]>([]);
   const themeStored = localStorage.getItem("theme");
   const { darkTheme, setTheme } = useTheme();
   const { token } = useAuth();
-
-  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const getData = () => {
     let componentMounted = true;

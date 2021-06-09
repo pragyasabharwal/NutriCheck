@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useQuiz } from "../context/QuizContext";
 import axios from "axios";
 import Loader from "react-loader-spinner";
+import { REACT_APP_BASE_URL } from "../components/utils/serverUrl"
 
 export const Answers = () => {
   const { selectedAns } = useQuiz();
@@ -11,7 +12,6 @@ export const Answers = () => {
   const { quizId } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
-  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     let componentMounted = true;

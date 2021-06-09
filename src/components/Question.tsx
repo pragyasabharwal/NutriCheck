@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useQuiz } from "../context/QuizContext";
 import axios from "axios";
 import Loader from "react-loader-spinner";
+import { REACT_APP_BASE_URL } from "../components/utils/serverUrl"
 
 export function Question() {
   const { state, dispatch, setSelectedAns, selectedAns } = useQuiz();
@@ -14,7 +15,6 @@ export function Question() {
   const navigate = useNavigate();
   const [count, setCount] = useState(30);
   const [data, setData] = useState([]);
-  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
   console.log(selectedAns);
 

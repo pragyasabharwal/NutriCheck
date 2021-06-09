@@ -6,12 +6,11 @@ import { Dashboard } from "./Dashboard";
 import { Quiz } from "../../types/main";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { Link } from 'react-router-dom';
+import { REACT_APP_BASE_URL } from "../utils/serverUrl"
 
 export const Home = () => {
   const themeStored = localStorage?.getItem("theme");
   const [data, setData] = useState<Quiz[]>([]);
-  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     let componentMounted = true;
