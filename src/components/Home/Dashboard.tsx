@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useQuiz } from "src/context/QuizContext";
-import { Quiz } from "../types/main";
+import { Quiz } from "../../types/main";
 import { motion } from "framer-motion";
 
 export const Dashboard = ({ data }: { data: Quiz[] }) => {

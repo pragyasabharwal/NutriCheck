@@ -7,24 +7,23 @@ import axios from "axios";
 import Loader from "react-loader-spinner";
 
 export function Question() {
-  const { state, dispatch } = useQuiz();
+  const { state, dispatch, setSelectedAns, selectedAns } = useQuiz();
   const [clicked, setClicked] = useState(false);
   const themeStored = localStorage.getItem("theme");
   const { quizId } = useParams();
   const navigate = useNavigate();
   const [count, setCount] = useState(30);
   const [data, setData] = useState([]);
-  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL
+  const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
+
+  console.log(selectedAns);
 
   useEffect(() => {
     let componentMounted = true;
     (async function () {
       try {
-        const resp = await axios.get(
-          `${REACT_APP_BASE_URL}/quiz/${quizId}`
-        );
-        if(componentMounted)
-        setData(resp.data.quiz);
+        const resp = await axios.get(`${REACT_APP_BASE_URL}/quiz/${quizId}`);
+        if (componentMounted) setData(resp.data.quiz);
       } catch (err) {
         console.log(err);
       }
@@ -37,7 +36,6 @@ export function Question() {
   useEffect(() => {
     state.initialQuestion === 8 && navigate(`/quiz/${quizId}/score`);
   });
-
 
   useEffect(() => {
     if (count === 0) {
@@ -56,9 +54,9 @@ export function Question() {
   }, [count, dispatch, navigate, state.initialQuestion]);
 
   window.onbeforeunload = (e: any) => {
-    e.preventDefault()
-    e.returnValue = '';
-  }
+    e.preventDefault();
+    e.returnValue = "";
+  };
 
   return (
     <>
@@ -103,7 +101,7 @@ export function Question() {
                 points,
                 negativePoint,
               }: {
-                _id: string
+                _id: string;
                 question: string;
                 options: [];
                 points: number;
@@ -129,6 +127,7 @@ export function Question() {
                           key={_id}
                           className={color(index)}
                           onClick={() => {
+                            setSelectedAns((prev: string) => prev.concat(text));
                             setClicked(true);
                             setCount(30);
                             isRight

@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }: Props) => {
   const [initials, setInitials] = useState<string | undefined>();
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const [userModal, setUserModal] = useState(false)
 
   const loginStatus: any = localStorage?.getItem("login");
 
@@ -31,14 +32,7 @@ export const AuthProvider = ({ children }: Props) => {
   const [login, setLogin] = useState(isUserLoggedIn);
   const [token, setToken] = useState(savedToken);
 
-  useEffect(()=>{
-
-    const storedStatus: any = localStorage?.getItem("login");
-    const {  token } = JSON.parse(storedStatus) || { token: null }
-    console.log( 'token', token )
-    setupAuthHeaderForServiceCalls(token);
-
-  }, [token])
+  token && setupAuthHeaderForServiceCalls(token);
 
   const loginUser: any = async (req: Request, res: Response) => {
     try {
@@ -54,7 +48,6 @@ export const AuthProvider = ({ children }: Props) => {
           "login",
           JSON.stringify({ isUserLoggedIn: true, token: res.data.token })
         );
-        setInitials(res.data.username.slice(0, 2));
         setToken(res.data.token);
         setupAuthHeaderForServiceCalls(res.data.token);
         setLogin(true);
@@ -64,9 +57,6 @@ export const AuthProvider = ({ children }: Props) => {
     }
   };
 
-  function loginToken(token: string | null) {
-    
-  }
 
   return (
     <AuthContext.Provider
@@ -85,7 +75,8 @@ export const AuthProvider = ({ children }: Props) => {
         password,
         setUsername,
         setPassword,
-        loginToken,
+        userModal,
+        setUserModal
       }}
     >
       {children}

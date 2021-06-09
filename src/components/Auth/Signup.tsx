@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Signup = () => {
   const themeStored = localStorage.getItem("theme");
@@ -10,6 +13,8 @@ export const Signup = () => {
   const [confirmPW, setConfirmPW] = useState<string>("");
   const [email, setMail] = useState<string>("");
   const [error, setError] = useState("");
+  const [showpw, setShowPw] = useState(false)
+  const [showpw2, setShowPw2] = useState(false)
   const REACT_APP_BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const signupUser = async () => {
@@ -66,23 +71,29 @@ export const Signup = () => {
         </div>
         <div className="user-input-wrp m-auto mt-6">
           <br />
+          <div className="relative">
           <input
             onChange={(e) => setPassword(e.target.value)}
-            type="password"
+            type={showpw ? "text" : "password"}
             className="inputText"
             required
           />
-          <span className="floating-label">Password</span>
+          <span className="floating-label-password">Password</span>
+          <FontAwesomeIcon icon={showpw ? faEyeSlash : faEye}className="cursor-pointer eye" onClick={()=>setShowPw((prev) => !prev)}></FontAwesomeIcon>
+          </div>
         </div>
         <div className="user-input-wrp m-auto mt-6">
           <br />
+          <div className="relative">
           <input
             onChange={(e) => setConfirmPW(e.target.value)}
-            type="password"
+            type={showpw2 ? "text" : "password"}
             className="inputText"
             required
           />
-          <span className="floating-label">Confirm Password</span>
+          <span className="floating-label-password">Confirm Password</span>
+          <FontAwesomeIcon icon={showpw2 ? faEyeSlash : faEye}className="cursor-pointer eye" onClick={()=>setShowPw2((prev) => !prev)}></FontAwesomeIcon>
+          </div>
         </div>
         <span className="text-red text-sm">{error}</span>
         <button
@@ -93,6 +104,7 @@ export const Signup = () => {
           onClick={() => {
             signupUser()
             passCheck()
+            navigate("/login")
             // error.length === 0 && navigate("/login");
           }}
         >

@@ -1,0 +1,16 @@
+.round{
+    border-bottom-left-radius: 6rem;
+    border-bottom-right-radius: 6rem;
+}
+@media only screen and (max-width: 600px) {
+    .responsive{
+        width: 23em;
+    }
+    .responsive-img {
+        width: 5em;
+    }
+    .responsive-text{
+        font-size: 1.5em;
+    }
+  }
+

@@ -1,14 +1,24 @@
 import { useTheme } from "../context/ThemeContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "src/context/AuthProvider";
-import { useEffect, useState } from "react";
+import { UserModal } from "./UserModal"
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useAuth } from "src/context/AuthProvider";
 
 export const Nav = () => {
   const { setTheme, lightTheme, darkTheme } = useTheme();
   const themeStored = localStorage.getItem("theme");
-  const { token, login, setLogin, initials, setInitials, setToken, setupAuthHeaderForServiceCalls } = useAuth();
+  const {
+    token,
+    login,
+    setLogin,
+    initials,
+    setInitials,
+    setToken,
+    setupAuthHeaderForServiceCalls,
+  } = useAuth();
   const navigate = useNavigate();
+  const { userModal, setUserModal } = useAuth();
 
   function themeFunc() {
     if (themeStored === "dark") {
@@ -18,8 +28,24 @@ export const Nav = () => {
       localStorage?.setItem("theme", "dark");
       setTheme(darkTheme);
     }
-  }  
-  
+  }
+
+  useEffect(() => {
+    (async function () {
+      const res = await axios.get(
+        "https://backend-quiz.pragyasabharwal.repl.co/user"
+      );
+      console.log(res);
+      try {
+        if (res.status === 200) {
+            console.log(res.data.username)
+          setInitials(res.data.username);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, [token]);
 
   return (
     <div className="flex justify-between shadow-xl mb-10 bg-green-400">
@@ -62,13 +88,14 @@ export const Nav = () => {
         </Link>
       </button>
       <button className="py-6 px-6 cursor-pointer flex bg-green-400">
-        {initials && initials?.length > 0 && (
-          <span className="mr-1">
-            Hi <span className="uppercase font-black">{initials}</span>,
-          </span>
-        )}
+      {token && (
+          <span className="mr-1" onClick={ ()=>login && setUserModal(!userModal)
+          }>
+            Hi <span className="capitalize font-black">{initials}</span>
+            </span>
+        )
+        }
         <Link to="/login">
-          <div></div>
           <span
             onClick={() => {
               localStorage.removeItem("login");
@@ -78,9 +105,10 @@ export const Nav = () => {
               setToken(null);
             }}
           >
-            {login ? "Logout" : "Login"}
+            {!login && "Login"}
           </span>
         </Link>
+        {userModal && <UserModal />}
       </button>
     </div>
   );

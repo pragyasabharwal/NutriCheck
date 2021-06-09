@@ -37,7 +37,8 @@ export type AuthContextType = {
   password: string | undefined;
   setUsername: (value: username) => void;
   setPassword: (value: password) => void;
-  loginToken: any
+  userModal: boolean;
+  setUserModal: (value: userModal) => void;
 };
 
 export type Props = {
@@ -45,6 +46,8 @@ export type Props = {
 };
 
 export type QuizContextType = {
+  selectedAns: array | undefined
+  setSelectedAns: (value: selectedAns) => void;
   initialScore: { score: number };
   dispatch: React.Dispatch<Action>;
   state: {
@@ -62,3 +65,9 @@ export type Quiz = {
   questions: Question[];
   imageUrl: string;
 };
+
+export type Scores = {
+  _id: number;
+  username: string;
+  score: number;
+}

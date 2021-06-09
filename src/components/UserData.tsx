@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useAuth } from "src/context/AuthProvider";
 
 export const UserData = () => {
-  const [products, setProducts] = useState([]);
+  const { token, setInitials } = useAuth();
 
   useEffect(() => {
     (async function () {
@@ -12,8 +13,8 @@ export const UserData = () => {
       console.log(res);
       try {
         if (res.status === 200) {
-          console.log(res.data.products);
-          setProducts(res.data.products);
+            console.log(res.data.username)
+          setInitials(res.data.username);
         }
       } catch (err) {
         console.log(err);
@@ -22,9 +23,6 @@ export const UserData = () => {
   }, []);
   return (
     <h1>
-      {products.map((item) => (
-        <li>{item}</li>
-      ))}
     </h1>
   );
 };

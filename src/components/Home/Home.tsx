@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Footer } from "../Footer";
 import Loader from "react-loader-spinner";
-import { Dashboard } from "../Dashboard";
+import { Dashboard } from "./Dashboard";
 import { Quiz } from "../../types/main";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
@@ -47,7 +47,10 @@ export const Home = () => {
       ) : (
         <>
           <div className="flex justify-center">
-            <FontAwesomeIcon icon={faCheckCircle} className="text-green-500 text-6xl"/>
+          <FontAwesomeIcon
+              icon={faCheckCircle}
+              className="text-green-500 text-6xl"
+            />
             <span
               className={
                 themeStored === "dark"

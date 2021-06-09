@@ -1,8 +1,10 @@
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { useQuiz } from "../context/QuizContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
+import axios from "axios"
 
 export const Score = () => {
   const { state } = useQuiz();
@@ -13,6 +15,17 @@ export const Score = () => {
   let navigate = useNavigate();
   const { dispatch } = useQuiz();
   const themeStored = localStorage.getItem("theme");
+
+  useEffect(()=>{
+    (async function () {
+      await axios.post(
+        "https://backend-quiz.pragyasabharwal.repl.co/user", {
+          score: state.score
+        }
+      )
+    })();
+  })
+
 
   return (
     <div className={themeStored === "dark" ? "text-white" : "text-black"}>
@@ -117,7 +130,7 @@ export const Score = () => {
             <button>Go home</button>
           </div>
           <div className="flex w-48 py-2 place-content-center p-2 mb-24 hover:bg-blue-700 hover:text-white cursor-pointer ring-4 ring-blue-400 ">
-            <button>View Answers</button>
+            <Link to={`/quiz/${quizId}/answers`}><button>View Answers</button></Link>
           </div>
         </div>
       </div>
