@@ -1,17 +1,23 @@
 import { useNavigate, useParams } from "react-router";
-import { option } from "./utils/option";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useQuiz } from "../context/QuizContext";
 import axios from "axios";
 import Loader from "react-loader-spinner";
-import { REACT_APP_BASE_URL } from "../components/utils/serverUrl"
+import { REACT_APP_BASE_URL } from "../components/utils/serverUrl";
 
 export const Answers = () => {
-  const { selectedAns } = useQuiz();
+  const { selectedAns, state } = useQuiz();
   const themeStored = localStorage.getItem("theme");
   const { quizId } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+
+  useEffect(()=>{
+      if(state.initialQuestion===8){
+          return;
+      }
+      navigate('/')
+  })
 
   useEffect(() => {
     let componentMounted = true;
@@ -28,8 +34,22 @@ export const Answers = () => {
     };
   }, []);
 
+  const markedAndCorrectOption = (text: string, isRight: boolean) => {
+    if (isRight) {
+        return "bg-green-500 text-white p-2 py-4 w-3/5 m-2";
+    }
+    if (selectedAns.includes(text) && isRight) {
+      return "bg-green-500 text-white p-2 py-4 w-3/5 m-2";
+    }
+    if (!selectedAns.includes(text)) {
+      return "bg-yellow-500 text-white p-2 py-4 w-3/5 m-2";
+    }
+    if (!isRight) {
+      return "bg-red-500 text-white p-2 py-4 w-3/5 m-2";
+    }
+  };
+
   return (
-      
     <>
       {data?.length === 0 ? (
         <div className="loader m-auto my-40 pt-40 pb-96 block w-max">
@@ -74,11 +94,7 @@ export const Answers = () => {
                   {options.map(({ text, isRight, _id }, index) => (
                     <div
                       key={_id}
-                      className={
-                        isRight ?
-                           "bg-green-500 text-white p-2 py-4 w-3/5 m-2"
-                          : "bg-red-500 text-white p-2 py-4 w-3/5 m-2"
-                      }
+                      className={markedAndCorrectOption(text, isRight)}
                     >
                       {text}
                     </div>
@@ -89,6 +105,7 @@ export const Answers = () => {
           )
         )
       )}
+      <div className="p-4"></div>
     </>
   );
 };

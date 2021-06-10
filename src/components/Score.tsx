@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
+import { REACT_APP_BASE_URL } from "../components/utils/serverUrl";
 
 export const Score = () => {
   const { state } = useQuiz();
@@ -16,16 +17,20 @@ export const Score = () => {
   const { dispatch } = useQuiz();
   const themeStored = localStorage.getItem("theme");
 
-  useEffect(()=>{
+  useEffect(() => {
     (async function () {
-      await axios.post(
-        "https://backend-quiz.pragyasabharwal.repl.co/user", {
-          score: state.score
-        }
-      )
+      await axios.post(`${ REACT_APP_BASE_URL }/user`, {
+        score: state.score,
+      });
     })();
-  })
+  });
 
+  useEffect(() => {
+    if (state.initialQuestion === 8) {
+      return;
+    }
+    navigate("/");
+  });
 
   return (
     <div className={themeStored === "dark" ? "text-white" : "text-black"}>
@@ -130,7 +135,9 @@ export const Score = () => {
             <button>Go home</button>
           </div>
           <div className="flex w-48 py-2 place-content-center p-2 mb-24 hover:bg-blue-700 hover:text-white cursor-pointer ring-4 ring-blue-400 ">
-            <Link to={`/quiz/${quizId}/answers`}><button>View Answers</button></Link>
+            <Link to={`/quiz/${quizId}/answers`}>
+              <button>View Answers</button>
+            </Link>
           </div>
         </div>
       </div>

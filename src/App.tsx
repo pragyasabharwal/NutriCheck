@@ -22,7 +22,6 @@ function App() {
   const [data, setData] = useState<Quiz[]>([]);
   const themeStored = localStorage.getItem("theme");
   const { darkTheme, setTheme } = useTheme();
-  const { token } = useAuth();
 
   const getData = () => {
     let componentMounted = true;

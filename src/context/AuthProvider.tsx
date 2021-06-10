@@ -1,12 +1,11 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { Props, AuthContextType } from "../types/main";
 import axios from "axios";
-import { REACT_APP_BASE_URL } from "../components/utils/serverUrl"
+import { REACT_APP_BASE_URL } from "../components/utils/serverUrl";
 
 const AuthContext = createContext<AuthContextType>(undefined!);
 
 function setupAuthHeaderForServiceCalls(token: string | null) {
-  console.log('called again', token);
   if (token) {
     return (axios.defaults.headers.common["Authorization"] = token);
   }
@@ -18,7 +17,7 @@ export const AuthProvider = ({ children }: Props) => {
   const [initials, setInitials] = useState<string | undefined>();
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
-  const [userModal, setUserModal] = useState(false)
+  const [userModal, setUserModal] = useState(false);
 
   const loginStatus: any = localStorage?.getItem("login");
 
@@ -27,7 +26,6 @@ export const AuthProvider = ({ children }: Props) => {
     token: null,
   };
 
- 
   const [login, setLogin] = useState(isUserLoggedIn);
   const [token, setToken] = useState(savedToken);
 
@@ -42,7 +40,6 @@ export const AuthProvider = ({ children }: Props) => {
         },
       });
       if (res.status === 200) {
-        console.log(res);
         localStorage?.setItem(
           "login",
           JSON.stringify({ isUserLoggedIn: true, token: res.data.token })
@@ -55,7 +52,6 @@ export const AuthProvider = ({ children }: Props) => {
       console.log(err);
     }
   };
-
 
   return (
     <AuthContext.Provider
@@ -75,7 +71,7 @@ export const AuthProvider = ({ children }: Props) => {
         setUsername,
         setPassword,
         userModal,
-        setUserModal
+        setUserModal,
       }}
     >
       {children}

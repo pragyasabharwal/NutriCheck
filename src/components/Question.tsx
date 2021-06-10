@@ -1,22 +1,20 @@
 import { useNavigate, useParams } from "react-router";
 import { color } from "./utils/color";
 import { option } from "./utils/option";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useQuiz } from "../context/QuizContext";
 import axios from "axios";
 import Loader from "react-loader-spinner";
-import { REACT_APP_BASE_URL } from "../components/utils/serverUrl"
+import { REACT_APP_BASE_URL } from "../components/utils/serverUrl";
 
 export function Question() {
-  const { state, dispatch, setSelectedAns, selectedAns } = useQuiz();
+  const { state, dispatch, setSelectedAns } = useQuiz();
   const [clicked, setClicked] = useState(false);
   const themeStored = localStorage.getItem("theme");
   const { quizId } = useParams();
   const navigate = useNavigate();
   const [count, setCount] = useState(30);
   const [data, setData] = useState([]);
-
-  console.log(selectedAns);
 
   useEffect(() => {
     let componentMounted = true;

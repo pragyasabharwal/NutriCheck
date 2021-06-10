@@ -4,7 +4,7 @@ import axios from "axios";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { REACT_APP_BASE_URL } from "../utils/serverUrl"
+import { REACT_APP_BASE_URL } from "../utils/serverUrl";
 
 export const Signup = () => {
   const themeStored = localStorage.getItem("theme");
@@ -14,8 +14,8 @@ export const Signup = () => {
   const [confirmPW, setConfirmPW] = useState<string>("");
   const [email, setMail] = useState<string>("");
   const [error, setError] = useState("");
-  const [showpw, setShowPw] = useState(false)
-  const [showpw2, setShowPw2] = useState(false)
+  const [showpw, setShowPw] = useState(false);
+  const [showpw2, setShowPw2] = useState(false);
 
   const signupUser = async () => {
     try {
@@ -36,14 +36,14 @@ export const Signup = () => {
   };
 
   const passCheck = () => {
-    console.log('herr')
+    console.log("herr");
 
     if (password.length > 0 && confirmPW.length > 0) {
-       password !== confirmPW && setError("Passwords do not match");
+      password !== confirmPW && setError("Passwords do not match");
     }
   };
 
-  console.log('error', error);
+  console.log("error", error);
 
   return (
     <div className={themeStored === "dark" ? "text-gray-400" : "text-black"}>
@@ -72,27 +72,35 @@ export const Signup = () => {
         <div className="user-input-wrp m-auto mt-6">
           <br />
           <div className="relative">
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            type={showpw ? "text" : "password"}
-            className="inputText"
-            required
-          />
-          <span className="floating-label-password">Password</span>
-          <FontAwesomeIcon icon={showpw ? faEyeSlash : faEye}className="cursor-pointer eye" onClick={()=>setShowPw((prev) => !prev)}></FontAwesomeIcon>
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              type={showpw ? "text" : "password"}
+              className="inputText"
+              required
+            />
+            <span className="floating-label-password">Password</span>
+            <FontAwesomeIcon
+              icon={showpw ? faEyeSlash : faEye}
+              className="cursor-pointer eye"
+              onClick={() => setShowPw((prev) => !prev)}
+            ></FontAwesomeIcon>
           </div>
         </div>
         <div className="user-input-wrp m-auto mt-6">
           <br />
           <div className="relative">
-          <input
-            onChange={(e) => setConfirmPW(e.target.value)}
-            type={showpw2 ? "text" : "password"}
-            className="inputText"
-            required
-          />
-          <span className="floating-label-password">Confirm Password</span>
-          <FontAwesomeIcon icon={showpw2 ? faEyeSlash : faEye}className="cursor-pointer eye" onClick={()=>setShowPw2((prev) => !prev)}></FontAwesomeIcon>
+            <input
+              onChange={(e) => setConfirmPW(e.target.value)}
+              type={showpw2 ? "text" : "password"}
+              className="inputText"
+              required
+            />
+            <span className="floating-label-password">Confirm Password</span>
+            <FontAwesomeIcon
+              icon={showpw2 ? faEyeSlash : faEye}
+              className="cursor-pointer eye"
+              onClick={() => setShowPw2((prev) => !prev)}
+            ></FontAwesomeIcon>
           </div>
         </div>
         <span className="text-red text-sm">{error}</span>
@@ -102,9 +110,9 @@ export const Signup = () => {
           }
           className="my-10 ring ring-green-400 w-20 p-2 m-auto"
           onClick={() => {
-            signupUser()
-            passCheck()
-            navigate("/login")
+            signupUser();
+            passCheck();
+            navigate("/login");
             // error.length === 0 && navigate("/login");
           }}
         >
@@ -112,7 +120,10 @@ export const Signup = () => {
         </button>
         <div>
           {" "}
-          Already have an account? <Link to="/login" className="underline">Log in</Link>
+          Already have an account?{" "}
+          <Link to="/login" className="underline">
+            Log in
+          </Link>
         </div>
         <div className="h-96"></div>
       </div>

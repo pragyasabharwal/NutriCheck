@@ -1,9 +1,10 @@
 import { useTheme } from "../context/ThemeContext";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { UserModal } from "./UserModal"
+import { Link } from "react-router-dom";
+import { UserModal } from "./UserModal";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "src/context/AuthProvider";
+import { REACT_APP_BASE_URL } from "../components/utils/serverUrl";
 
 export const Nav = () => {
   const { setTheme, lightTheme, darkTheme } = useTheme();
@@ -17,7 +18,6 @@ export const Nav = () => {
     setToken,
     setupAuthHeaderForServiceCalls,
   } = useAuth();
-  const navigate = useNavigate();
   const { userModal, setUserModal } = useAuth();
 
   function themeFunc() {
@@ -32,13 +32,9 @@ export const Nav = () => {
 
   useEffect(() => {
     (async function () {
-      const res = await axios.get(
-        "https://backend-quiz.pragyasabharwal.repl.co/user"
-      );
-      console.log(res);
+      const res = await axios.get(`${REACT_APP_BASE_URL}/user`);
       try {
         if (res.status === 200) {
-            console.log(res.data.username)
           setInitials(res.data.username);
         }
       } catch (err) {
@@ -88,13 +84,14 @@ export const Nav = () => {
         </Link>
       </button>
       <button className="py-6 px-6 cursor-pointer flex bg-green-400">
-      {token && (
-          <span className="mr-1" onClick={ ()=>login && setUserModal(!userModal)
-          }>
+        {token && (
+          <span
+            className="mr-1"
+            onClick={() => login && setUserModal(!userModal)}
+          >
             Hi <span className="capitalize font-black">{initials}</span>
-            </span>
-        )
-        }
+          </span>
+        )}
         <Link to="/login">
           <span
             onClick={() => {
