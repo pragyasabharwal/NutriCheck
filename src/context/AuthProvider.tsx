@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { Props, AuthContextType } from "../types/main";
 import axios from "axios";
 import { REACT_APP_BASE_URL } from "../components/utils/serverUrl";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AuthContext = createContext<AuthContextType>(undefined!);
 
@@ -13,11 +14,14 @@ function setupAuthHeaderForServiceCalls(token: string | null) {
 }
 
 export const AuthProvider = ({ children }: Props) => {
+  const { state }: any = useLocation();
+  const navigate = useNavigate();
   const [modal, setModal] = useState<boolean | undefined>();
   const [initials, setInitials] = useState<string | undefined>();
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [userModal, setUserModal] = useState(false);
+  const [error, setError] = useState("");
 
   const loginStatus: any = localStorage?.getItem("login");
 
@@ -47,6 +51,9 @@ export const AuthProvider = ({ children }: Props) => {
         setToken(res.data.token);
         setupAuthHeaderForServiceCalls(res.data.token);
         setLogin(true);
+      }
+      if (res.status === 401 || 404) {
+        setError(res.data.message);
       }
     } catch (err) {
       console.log(err);

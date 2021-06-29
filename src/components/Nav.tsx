@@ -102,7 +102,7 @@ export const Nav = () => {
               setToken(null);
             }}
           >
-            {!login && "Login"}
+            {!token && "Login"}
           </span>
         </Link>
         {userModal && <UserModal />}

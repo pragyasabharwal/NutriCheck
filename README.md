@@ -1,46 +1,56 @@
-# Getting Started with Create React App
+# Nutricheck
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Nutricheck is a MERN Stack quiz app and one of the major apps of my project suite based on healthy eating, conscious diet and judicious calorie intake.
 
-## Available Scripts
+## Tech Stack:
 
-In the project directory, you can run:
+<ol>
+<li>TypeScript with React: Reducer + Context
+<ul>
+ <li> useState
+<li> useContext
+<li> useEffect
+<li> useReducer
+</ul>
+<li>React Router v6</li>
+<li>React Loader Spinner for loading state</li>
+<li>Styled using TailwindCSS</li>
+<li>Used Node.js and Express.js for writing the API</li>
+<li>Database: MongoDB</li>
+<li>Authentication done using JWT.</li>
+</li>
+<li><a href="https://nutricheck.netlify.app/">Deployed on Netlify</a></li>
+</ol>
 
-### `yarn start`
+ > Please refer the dev branch for the source code.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
+<ol>
+<li>
+ User can Sign up and Log in. The user stays logged in for 24h by default. Used an auth header for setting the token for all the API calls.
+</li>
+<li>
+ Dark mode persistence. 
+</li>
+<li>
+User initials show on navbar after logging in.
+ </li>
+<li>
+Leaderboard is updated with the latest score of the user and accessible only to logged in users.
+</li>
+<li>
+Three different quizzes.
+</li>
+<li>
+Rules before playing the quiz.
+</li>
+<li>
+Thirty seconds timer for each question.
+</li>
+<li>
+Detailed performance stats include accuracy, score, wrong and unattempted questions.
+</li>
+<li>
+User can view the answers they marked and the correct answers. 
+</li>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
